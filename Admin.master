@@ -32,6 +32,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+          <form id="form1" runat="server">
     <div class="wrapper">
         
   <!-- Preloader -->
@@ -256,11 +257,9 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-          <form id="form1" runat="server">
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
-    </form>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -316,5 +315,7 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+    </form>
 </body>
 </html>
