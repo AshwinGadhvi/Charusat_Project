@@ -1,7 +1,6 @@
 ﻿Imports System.Net.Mail
 Imports System.Net
 Imports System.Text
-Imports System.Security.Cryptography
 
 Partial Class Company_Login
     Inherits System.Web.UI.Page
@@ -24,16 +23,16 @@ Partial Class Company_Login
     Private Sub submit_Click(sender As Object, e As EventArgs) Handles submit.Click
         Try
             If Session("Flag") = 0 Then
-                SqlDataSource1.InsertParameters("company_name").DefaultValue() = company_name.Text
-                SqlDataSource1.InsertParameters("company_email").DefaultValue() = company_email.Text
-                SqlDataSource1.InsertParameters("company_password").DefaultValue() = company_password.Text
+                SqlDataSource1.InsertParameters("company_name").DefaultValue = company_name.Text
+                SqlDataSource1.InsertParameters("company_email").DefaultValue = company_email.Text
+                SqlDataSource1.InsertParameters("company_password").DefaultValue = company_password.Text
                 SqlDataSource1.Insert()
                 clear()
             Else
-                SqlDataSource1.UpdateParameters("company_name").DefaultValue() = company_name.Text
-                SqlDataSource1.UpdateParameters("company_email").DefaultValue() = company_email.Text
-                SqlDataSource1.UpdateParameters("company_password").DefaultValue() = company_password.Text
-                SqlDataSource1.UpdateParameters("company_id").DefaultValue() = company_id.Value
+                SqlDataSource1.UpdateParameters("company_name").DefaultValue = company_name.Text
+                SqlDataSource1.UpdateParameters("company_email").DefaultValue = company_email.Text
+                SqlDataSource1.UpdateParameters("company_password").DefaultValue = company_password.Text
+                SqlDataSource1.UpdateParameters("company_id").DefaultValue = company_id.Value
                 SqlDataSource1.Update()
                 clear()
             End If
@@ -82,18 +81,21 @@ Partial Class Company_Login
             'ClientScript.RegisterStartupScript(Me.GetType(), "Alert", $"alert('{ex.Message}');", True)
         Catch ex As Exception
             MsgBox(ex.Message)
-
             'ClientScript.RegisterStartupScript(Me.GetType(), "Alert", $"alert('An error occurred: {ex.Message}');", True)
         End Try
     End Sub
 
     Private Sub SendEmail(email As String, companyName As String, password As String)
         Try
-            Dim fromAddress As New MailAddress("tfgpashwin397@gmail.com", "tfgp ashwin")
+            Dim fromAddress As New MailAddress("tfgpashwin397@gmail.com", "TFGP Ashwin")
             Dim toAddress As New MailAddress(email)
             Dim fromPassword As String = "rayv ephx hpbd gezo" ' Update with your email password
             Dim subject As String = "Company Credential Information"
-            Dim body As String = "Hello! I hope this email finds you well." & vbCrLf & "Your email and password for logging into the Charusat Company Dashboard are:" & vbCrLf & "Email: " & email & "Password: " & password
+            Dim body As New StringBuilder()
+            body.AppendLine("Hello! I hope this email finds you well.")
+            body.AppendLine("Your email and password for logging into the Charusat Company Dashboard are:")
+            body.AppendLine("Email: " & email)
+            body.AppendLine("Password: " & password)
 
             Dim smtp As New SmtpClient("smtp.gmail.com", 587)
             smtp.EnableSsl = True
@@ -104,17 +106,15 @@ Partial Class Company_Login
 
             Dim message As New MailMessage(fromAddress, toAddress)
             message.Subject = subject
-            message.Body = body
+            message.Body = body.ToString()
             message.BodyEncoding = Encoding.UTF8
             message.IsBodyHtml = False
 
             smtp.Send(message)
 
-            ' Display success alert
-            ClientScript.RegisterStartupScript(Me.GetType(), "Alert", "alert('Email sent successfully to your email.');", True)
+
         Catch ex As Exception
-            ' Display error alert
-            ' ClientScript.RegisterStartupScript(Me.GetType(), "Alert", $"alert('Failed to send email. Error message: {ex.Message.Replace("'", "\'")}');", True)
+            MsgBox(ex.Message)
         End Try
     End Sub
 
@@ -123,5 +123,6 @@ Partial Class Company_Login
         company_password.Text = ""
         company_email.Text = ""
         company_id.Value = ""
+        Session("Flag") = 0
     End Sub
 End Class
