@@ -27,7 +27,7 @@
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="Home.aspx">Home</a></li>
-                <li class="breadcrumb-item active">Admin Master</li>
+                <li class="breadcrumb-item active">Company Master</li>
               </ol>
             </div>
           </div>
