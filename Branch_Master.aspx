@@ -22,7 +22,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Admin Master</h1>
+                            <h1>Branch Master</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -44,17 +44,18 @@
                             <label for="exampleInputEmail1">Select College</label>
                             <asp:DropDownList ID="college_name" runat="server" DataSourceID="SqlDataSource1" DataTextField="college_name" DataValueField="college_id" class="form-control"></asp:DropDownList>
                             <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' SelectCommand="SELECT [college_id], [college_name] FROM [College_Master] ORDER BY [college_name]"></asp:SqlDataSource>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Valid Name" ControlToValidate="college_name" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Valid Name" ControlToValidate="college_name" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">College Branch</label>
                             <asp:TextBox ID="branch_name" runat="server" placeholder="Enter Branch Name" class="form-control"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid Password" ControlToValidate="branch_name" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid Branch Name" ControlToValidate="branch_name" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
                         
                     </div>
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="admin" ForeColor="#FF3300" />
                     <div class="card-footer">
-                        <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" />
+                        <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
                     </div>
                 </div>
             </div>
@@ -64,7 +65,7 @@
                 <div class="container-fluid">
                     <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+                <h3 class="card-title">List Of All Branches</h3>
               </div>
               <!-- /.card-header -->
            
@@ -73,30 +74,27 @@
 
                         <Columns>
                             <asp:BoundField DataField="branch_id" HeaderText="branch_id" ReadOnly="True" InsertVisible="False" SortExpression="branch_id"></asp:BoundField>
-                            <asp:BoundField DataField="college_id" HeaderText="college_id" SortExpression="college_id"></asp:BoundField>
+                            <asp:BoundField DataField="college_id" HeaderText="college_id" SortExpression="college_id" Visible="false"></asp:BoundField>
+                                                        <asp:BoundField DataField="college_name" HeaderText="college_name" SortExpression="college_name"></asp:BoundField>
                             <asp:BoundField DataField="branch_name" HeaderText="branch_name" SortExpression="branch_name"></asp:BoundField>
-                            <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
-                                <ItemTemplate>
-                                    <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
-                                    &nbsp;&nbsp;
-                                          
-                               <asp:ImageButton ID="del" runat="server" CommandName="del" CausesValidation="false" OnClientClick="return message(this);" Text="Delete" CommandArgument='<%# Eval("branch_id") %>' Height="35px" Width="35px" ImageUrl="img/bin.png"/>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+
+
                         </Columns>
                     </asp:GridView>
 
-                    <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Branch_Master] WHERE [branch_id] = @branch_id" InsertCommand="INSERT INTO [Branch_Master] ([college_id], [branch_name]) VALUES (@college_id, @branch_name)" SelectCommand="SELECT * FROM [Branch_Master]">
+                    <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Branch_Master] WHERE [branch_id] = @branch_id" InsertCommand="INSERT INTO [Branch_Master] ([college_id], [branch_name], [college_name]) VALUES (@college_id, @branch_name, @college_name)" SelectCommand="SELECT * FROM [Branch_Master]" UpdateCommand="UPDATE [Branch_Master] SET [college_id] = @college_id, [branch_name] = @branch_name, [college_name] = @college_name WHERE [branch_id] = @branch_id">
                         <DeleteParameters>
                             <asp:Parameter Name="branch_id" Type="Int32"></asp:Parameter>
                         </DeleteParameters>
                         <InsertParameters>
                             <asp:Parameter Name="college_id" Type="Int32"></asp:Parameter>
                             <asp:Parameter Name="branch_name" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="college_name" Type="String"></asp:Parameter>
                         </InsertParameters>
                         <UpdateParameters>
                             <asp:Parameter Name="college_id" Type="Int32"></asp:Parameter>
                             <asp:Parameter Name="branch_name" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="college_name" Type="String"></asp:Parameter>
                             <asp:Parameter Name="branch_id" Type="Int32"></asp:Parameter>
                         </UpdateParameters>
                     </asp:SqlDataSource>
