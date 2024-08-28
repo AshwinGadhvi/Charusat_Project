@@ -15,7 +15,7 @@
     </asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <asp:HiddenField ID="college_id" runat="server" />
+            <asp:HiddenField ID="company_id" runat="server" />
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
@@ -119,6 +119,85 @@
                     </div>
                 </div>
             </div>
+                        <!-- Table -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Company Details</h3>
+              </div>
+              <!-- /.card-header -->
+           <div class="card-body">
+            <asp:GridView ID="example1" runat="server" AutoGenerateColumns="False" DataKeyNames="company_id" DataSourceID="SqlDataSource1" CssClass="table table-bordered table-striped table-responsive">
+                <Columns>
+                    <asp:BoundField DataField="company_id" HeaderText="company_id" ReadOnly="True" InsertVisible="False" SortExpression="company_id"></asp:BoundField>
+                    <asp:BoundField DataField="company_name" HeaderText="company_name" SortExpression="company_name"></asp:BoundField>
+                    <asp:BoundField DataField="company_address" HeaderText="company_address" SortExpression="company_address"></asp:BoundField>
+                    <asp:BoundField DataField="company_city" HeaderText="company_city" SortExpression="company_city"></asp:BoundField>
+                    <asp:BoundField DataField="company_state" HeaderText="company_state" SortExpression="company_state"></asp:BoundField>
+                    <asp:BoundField DataField="company_country" HeaderText="company_country" SortExpression="company_country"></asp:BoundField>
+                    <asp:BoundField DataField="company_zipcode" HeaderText="company_zipcode" SortExpression="company_zipcode"></asp:BoundField>
+                    <asp:BoundField DataField="company_email" HeaderText="company_email" SortExpression="company_email"></asp:BoundField>
+                    <asp:BoundField DataField="company_phone" HeaderText="company_phone" SortExpression="company_phone"></asp:BoundField>
+                    <asp:BoundField DataField="company_website" HeaderText="company_website" SortExpression="company_website"></asp:BoundField>
+                    <asp:BoundField DataField="company_industry" HeaderText="company_industry" SortExpression="company_industry"></asp:BoundField>
+                    <asp:BoundField DataField="company_contact_person_name" HeaderText="company_contact_person_name" SortExpression="company_contact_person_name"></asp:BoundField>
+                    <asp:BoundField DataField="company_contact_person_email" HeaderText="company_contact_person_email" SortExpression="company_contact_person_email"></asp:BoundField>
+                    <asp:BoundField DataField="company_contact_person_phone" HeaderText="company_contact_person_phone" SortExpression="company_contact_person_phone"></asp:BoundField>
+                    <asp:BoundField DataField="company_description" HeaderText="company_description" SortExpression="company_description"></asp:BoundField>
+                                                             <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
+                    <ItemTemplate>
+                      <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
+                      &nbsp;&nbsp;
+                      <asp:ImageButton ID="del" runat="server" CommandName="del" CausesValidation="false" OnClientClick="return message(this);" Text="Delete" CommandArgument='<%# Eval("company_id") %>' Height="35px" Width="35px" ImageUrl="img/bin.png" />
+                      &nbsp;&nbsp;
+                    </ItemTemplate>
+                  </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+            <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Company_Details] WHERE [company_id] = @company_id" InsertCommand="INSERT INTO [Company_Details] ([company_name], [company_address], [company_city], [company_state], [company_country], [company_zipcode], [company_email], [company_phone], [company_website], [company_industry], [company_contact_person_name], [company_contact_person_email], [company_contact_person_phone], [company_description]) VALUES (@company_name, @company_address, @company_city, @company_state, @company_country, @company_zipcode, @company_email, @company_phone, @company_website, @company_industry, @company_contact_person_name, @company_contact_person_email, @company_contact_person_phone, @company_description)" SelectCommand="SELECT * FROM [Company_Details]" UpdateCommand="UPDATE [Company_Details] SET [company_name] = @company_name, [company_address] = @company_address, [company_city] = @company_city, [company_state] = @company_state, [company_country] = @company_country, [company_zipcode] = @company_zipcode, [company_email] = @company_email, [company_phone] = @company_phone, [company_website] = @company_website, [company_industry] = @company_industry, [company_contact_person_name] = @company_contact_person_name, [company_contact_person_email] = @company_contact_person_email, [company_contact_person_phone] = @company_contact_person_phone, [company_description] = @company_description WHERE [company_id] = @company_id">
+                <DeleteParameters>
+                    <asp:Parameter Name="company_id" Type="Int32"></asp:Parameter>
+                </DeleteParameters>
+                <InsertParameters>
+                    <asp:Parameter Name="company_name" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_address" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_city" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_state" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_country" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_zipcode" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_email" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_phone" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_website" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_industry" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_contact_person_name" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_contact_person_email" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_contact_person_phone" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_description" Type="String"></asp:Parameter>
+                </InsertParameters>
+                <UpdateParameters>
+                    <asp:Parameter Name="company_name" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_address" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_city" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_state" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_country" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_zipcode" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_email" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_phone" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_website" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_industry" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_contact_person_name" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_contact_person_email" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_contact_person_phone" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_description" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="company_id" Type="Int32"></asp:Parameter>
+                </UpdateParameters>
+            </asp:SqlDataSource>
+               </div>
+                        </div>
+                    </div>
+                </div>
+            
             <script type="text/javascript">
                 $("#ContentPlaceHolder1_example1").DataTable({
                     "responsive": true, "lengthChange": false, "autoWidth": false,
