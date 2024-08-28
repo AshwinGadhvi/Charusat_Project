@@ -232,7 +232,7 @@
               <li class="nav-item">
                 <a href="Company_Login.aspx" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Company Master</p>
+                  <p>Company Credential</p>
                 </a>
               </li>
               <li class="nav-item">
