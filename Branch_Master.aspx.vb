@@ -31,11 +31,13 @@ Partial Class Branch_Master
             If Session("Flag") = 0 Then
                 SqlDataSource2.InsertParameters("college_id").DefaultValue = college_name.SelectedValue
                 SqlDataSource2.InsertParameters("branch_name").DefaultValue = branch_name.Text
+                SqlDataSource2.InsertParameters("college_name").DefaultValue = college_name.SelectedItem.Text
                 SqlDataSource2.Insert()
                 clear()
             Else
                 SqlDataSource2.UpdateParameters("college_id").DefaultValue = college_name.SelectedValue
                 SqlDataSource2.UpdateParameters("branch_name").DefaultValue = branch_name.Text
+                SqlDataSource2.UpdateParameters("college_name").DefaultValue = college_name.SelectedItem.Text
                 SqlDataSource2.UpdateParameters("branch_id").DefaultValue = branch_id.Value
                 SqlDataSource2.Update()
                 clear()
@@ -51,6 +53,7 @@ Partial Class Branch_Master
         Dim index As Integer = gvRow.RowIndex
         college_name.Text = example1.Rows(index).Cells(1).Text
         branch_name.Text = example1.Rows(index).Cells(2).Text
+        college_name.Text = example1.Rows(index).Cells(3).Text
         branch_id.Value = Convert.ToInt32(example1.DataKeys(index).Values("branch_id"))
         Session("Flag") = 1
     End Sub
