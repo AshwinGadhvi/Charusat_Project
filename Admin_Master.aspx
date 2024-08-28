@@ -46,12 +46,12 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Admin Name</label>
                             <asp:TextBox ID="user_name" runat="server" class="form-control" placeholder="Enter Name"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Valid Name" ControlToValidate="user_name" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Valid Name" ControlToValidate="user_name" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <asp:TextBox ID="user_password" runat="server" placeholder="Enter Password" class="form-control" TextMode="Password"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid Password" ControlToValidate="user_password" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid Password" ControlToValidate="user_password" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputFile">User Type</label>
@@ -61,8 +61,9 @@
                             </asp:DropDownList>
                         </div>
                     </div>
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="admin" ForeColor="#FF3300" />
                     <div class="card-footer">
-                        <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" />
+                        <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
                     </div>
                 </div>
             </div>
@@ -72,7 +73,7 @@
                 <div class="container-fluid">
                     <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+                <h3 class="card-title">List Of All Employees</h3>
               </div>
               <!-- /.card-header -->
            
@@ -86,10 +87,10 @@
                             <asp:BoundField DataField="user_type" HeaderText="user_type" SortExpression="user_type"></asp:BoundField>
                             <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/icons8-edit-40.png" Width="35px" Height="35px" />
+                                    <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
                                     &nbsp;&nbsp;
                                           
-                               <asp:ImageButton ID="del" runat="server" CommandName="del" CausesValidation="false" OnClientClick="return message(this);" Text="Delete" CommandArgument='<%# Eval("user_id") %>' Height="35px" Width="35px" ImageUrl="img/icons8-delete-40.png"/>
+                               <asp:ImageButton ID="del" runat="server" CommandName="del" CausesValidation="false" OnClientClick="return message(this);" Text="Delete" CommandArgument='<%# Eval("user_id") %>' Height="35px" Width="35px" ImageUrl="img/bin.png"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
