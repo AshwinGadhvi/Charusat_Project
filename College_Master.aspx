@@ -44,32 +44,33 @@
                         <div class="form-group col-6 d-inline-block">
                             <label for="exampleInputEmail1">College Name</label>
                             <asp:TextBox ID="college_name" runat="server" class="form-control" placeholder="Enter Name Of College"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Valid Name Of College" ControlToValidate="college_name" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Valid Name Of College" ControlToValidate="college_name" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group col-6 d-inline-block">
                             <label for="exampleInputPassword1">College Location</label>
                             <asp:TextBox ID="college_location" runat="server" placeholder="Enter College Location" class="form-control"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid college location" ControlToValidate="college_location" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid college location" ControlToValidate="college_location" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group col-6 d-inline-block">
                             <label for="exampleInputPassword1">College Email</label>
                             <asp:TextBox ID="college_email" runat="server" placeholder="Enter College Email" class="form-control"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Enter Valid college email" ControlToValidate="college_email" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Enter Valid college email" ControlToValidate="college_email" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group col-6 d-inline-block">
                             <label for="exampleInputPassword1">College Contact</label>
                             <asp:TextBox ID="college_contact" runat="server" placeholder="Enter College Contact" class="form-control"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Enter Valid college Contact" ControlToValidate="college_contact" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Enter Valid college Contact" ControlToValidate="college_contact" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group col-6 d-inline-block">
                             <label for="exampleInputPassword1">College Details</label>
                             <asp:TextBox ID="college_details" runat="server" placeholder="Enter College Details" class="form-control"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Enter Valid college details" ControlToValidate="college_details" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Enter Valid college details" ControlToValidate="college_details" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
                         </div>
                     </div>
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="#FF3300" ValidationGroup="admin" />
                     <div class="card-footer">
-                        <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" />
+                        <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
                     </div>
                 </div>
             </div>
@@ -79,7 +80,7 @@
                 <div class="container-fluid">
                     <div class="card">
               <div class="card-header">
-                <h3 class="card-title">List Of All Coleges</h3>
+                <h3 class="card-title">List Of All Colleges</h3>
               </div>
               <!-- /.card-header -->
            <div class="card-body">
