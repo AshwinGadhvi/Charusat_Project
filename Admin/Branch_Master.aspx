@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin.master" AutoEventWireup="false" CodeFile="Branch_Master.aspx.vb" Inherits="Branch_Master" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="false" CodeFile="Branch_Master.aspx.vb" Inherits="Branch_Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
      <!-- DataTables -->
@@ -77,7 +77,14 @@
                             <asp:BoundField DataField="college_id" HeaderText="college_id" SortExpression="college_id" Visible="false"></asp:BoundField>
                                                         <asp:BoundField DataField="college_name" HeaderText="college_name" SortExpression="college_name"></asp:BoundField>
                             <asp:BoundField DataField="branch_name" HeaderText="branch_name" SortExpression="branch_name"></asp:BoundField>
-
+                            <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
+                    <ItemTemplate>
+                      <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
+                      &nbsp;&nbsp;
+                      <asp:ImageButton ID="del" runat="server" CommandName="del" CausesValidation="false" OnClientClick="return message(this);" Text="Delete" CommandArgument='<%# Eval("branch_id") %>' Height="35px" Width="35px" ImageUrl="img/bin.png" />
+                      &nbsp;&nbsp;
+                    </ItemTemplate>
+                  </asp:TemplateField>
 
                         </Columns>
                     </asp:GridView>

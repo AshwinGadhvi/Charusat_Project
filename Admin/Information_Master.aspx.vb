@@ -6,6 +6,7 @@ Partial Class Information_Master
         If Not Page.IsPostBack Then
             Session.Add("Flag", 0)
         End If
+        u_id.Text = Session("u_id")
     End Sub
     Private Sub example1_PreRender(sender As Object, e As EventArgs) Handles example1.PreRender
         Try
@@ -51,7 +52,7 @@ Partial Class Information_Master
                 SqlDataSource1.InsertParameters("company_contact_person_email").DefaultValue = cm_c_p_e.Text
                 SqlDataSource1.InsertParameters("company_contact_person_phone").DefaultValue = cm_c_p_m.Text
                 SqlDataSource1.InsertParameters("company_description").DefaultValue = company_description.Text
-
+                SqlDataSource1.InsertParameters("c_id").DefaultValue = Session("u_id")
                 SqlDataSource1.Insert()
                 clear()
             Else
@@ -70,6 +71,7 @@ Partial Class Information_Master
                 SqlDataSource1.UpdateParameters("company_contact_person_phone").DefaultValue = cm_c_p_m.Text
                 SqlDataSource1.UpdateParameters("company_description").DefaultValue = company_description.Text
                 SqlDataSource1.UpdateParameters("company_id").DefaultValue = company_id.Value
+                SqlDataSource1.UpdateParameters("c_id").DefaultValue = Session("u_id")
                 SqlDataSource1.Update()
                 clear()
 
@@ -97,6 +99,7 @@ Partial Class Information_Master
         cm_c_p_m.Text = example1.Rows(index).Cells(13).Text
         company_description.Text = example1.Rows(index).Cells(14).Text
         company_id.Value = Convert.ToInt32(example1.DataKeys(index).Values("company_id"))
+
         Session("Flag") = 1
     End Sub
     Public Sub clear()
@@ -125,7 +128,6 @@ Partial Class Information_Master
         ElseIf show.Text = "Hide" Then
             show.Text = "Show"
             example1.Visible = False
-
         End If
     End Sub
 End Class

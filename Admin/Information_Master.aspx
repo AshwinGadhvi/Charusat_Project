@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Company.master" AutoEventWireup="false" CodeFile="Information_Master.aspx.vb" Inherits="Information_Master" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/Company.master" AutoEventWireup="false" CodeFile="Information_Master.aspx.vb" Inherits="Information_Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <!-- DataTables -->
@@ -15,6 +15,7 @@
     </asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+            <asp:Label ID="u_id" runat="server" Visible="false" Text=""></asp:Label>
             <asp:HiddenField ID="company_id" runat="server" />
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -116,7 +117,7 @@
                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="admin" ForeColor="#FF3300" />
                     <div class="card-footer">
                         <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin"/>
-                        <asp:Button ID="show" runat="server" Text="Show" CssClass="btn btn-danger" />
+                        <asp:Button ID="show" runat="server" Text="Show" CssClass="btn btn-danger" PostBackUrl="~/Admin/Information_Master.aspx" />
                     </div>
                 </div>
             </div>
@@ -146,7 +147,8 @@
                     <asp:BoundField DataField="company_contact_person_email" HeaderText="company_contact_person_email" SortExpression="company_contact_person_email"></asp:BoundField>
                     <asp:BoundField DataField="company_contact_person_phone" HeaderText="company_contact_person_phone" SortExpression="company_contact_person_phone"></asp:BoundField>
                     <asp:BoundField DataField="company_description" HeaderText="company_description" SortExpression="company_description"></asp:BoundField>
-                                                             <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
+                    <asp:BoundField DataField="c_id" HeaderText="c_id" SortExpression="c_id" Visible="false"></asp:BoundField>
+                    <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
                     <ItemTemplate>
                       <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
                       &nbsp;&nbsp;
@@ -156,43 +158,48 @@
                   </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Company_Details] WHERE [company_id] = @company_id" InsertCommand="INSERT INTO [Company_Details] ([company_name], [company_address], [company_city], [company_state], [company_country], [company_zipcode], [company_email], [company_phone], [company_website], [company_industry], [company_contact_person_name], [company_contact_person_email], [company_contact_person_phone], [company_description]) VALUES (@company_name, @company_address, @company_city, @company_state, @company_country, @company_zipcode, @company_email, @company_phone, @company_website, @company_industry, @company_contact_person_name, @company_contact_person_email, @company_contact_person_phone, @company_description)" SelectCommand="SELECT * FROM [Company_Details]" UpdateCommand="UPDATE [Company_Details] SET [company_name] = @company_name, [company_address] = @company_address, [company_city] = @company_city, [company_state] = @company_state, [company_country] = @company_country, [company_zipcode] = @company_zipcode, [company_email] = @company_email, [company_phone] = @company_phone, [company_website] = @company_website, [company_industry] = @company_industry, [company_contact_person_name] = @company_contact_person_name, [company_contact_person_email] = @company_contact_person_email, [company_contact_person_phone] = @company_contact_person_phone, [company_description] = @company_description WHERE [company_id] = @company_id">
-                <DeleteParameters>
-                    <asp:Parameter Name="company_id" Type="Int32"></asp:Parameter>
-                </DeleteParameters>
-                <InsertParameters>
-                    <asp:Parameter Name="company_name" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_address" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_city" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_state" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_country" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_zipcode" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_email" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_phone" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_website" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_industry" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_contact_person_name" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_contact_person_email" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_contact_person_phone" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_description" Type="String"></asp:Parameter>
-                </InsertParameters>
-                <UpdateParameters>
-                    <asp:Parameter Name="company_name" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_address" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_city" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_state" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_country" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_zipcode" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_email" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_phone" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_website" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_industry" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_contact_person_name" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_contact_person_email" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_contact_person_phone" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_description" Type="String"></asp:Parameter>
-                    <asp:Parameter Name="company_id" Type="Int32"></asp:Parameter>
-                </UpdateParameters>
+               <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Company_Details] WHERE [company_id] = @company_id" InsertCommand="INSERT INTO [Company_Details] ([company_name], [company_address], [company_city], [company_state], [company_country], [company_zipcode], [company_email], [company_phone], [company_website], [company_industry], [company_contact_person_name], [company_contact_person_email], [company_contact_person_phone], [company_description], [c_id]) VALUES (@company_name, @company_address, @company_city, @company_state, @company_country, @company_zipcode, @company_email, @company_phone, @company_website, @company_industry, @company_contact_person_name, @company_contact_person_email, @company_contact_person_phone, @company_description, @c_id)" SelectCommand="SELECT * FROM [Company_Details] WHERE ([c_id] = @c_id)" UpdateCommand="UPDATE [Company_Details] SET [company_name] = @company_name, [company_address] = @company_address, [company_city] = @company_city, [company_state] = @company_state, [company_country] = @company_country, [company_zipcode] = @company_zipcode, [company_email] = @company_email, [company_phone] = @company_phone, [company_website] = @company_website, [company_industry] = @company_industry, [company_contact_person_name] = @company_contact_person_name, [company_contact_person_email] = @company_contact_person_email, [company_contact_person_phone] = @company_contact_person_phone, [company_description] = @company_description, [c_id] = @c_id WHERE [company_id] = @company_id">
+                   <DeleteParameters>
+                       <asp:Parameter Name="company_id" Type="Int32"></asp:Parameter>
+                   </DeleteParameters>
+                   <InsertParameters>
+                       <asp:Parameter Name="company_name" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_address" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_city" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_state" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_country" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_zipcode" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_email" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_phone" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_website" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_industry" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_contact_person_name" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_contact_person_email" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_contact_person_phone" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_description" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="c_id" Type="String"></asp:Parameter>
+                   </InsertParameters>
+                   <SelectParameters>
+                       <asp:ControlParameter ControlID="u_id" PropertyName="Text" DefaultValue="0" Name="c_id" Type="String"></asp:ControlParameter>
+                   </SelectParameters>
+                   <UpdateParameters>
+                       <asp:Parameter Name="company_name" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_address" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_city" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_state" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_country" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_zipcode" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_email" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_phone" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_website" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_industry" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_contact_person_name" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_contact_person_email" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_contact_person_phone" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_description" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="c_id" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_id" Type="Int32"></asp:Parameter>
+                   </UpdateParameters>
             </asp:SqlDataSource>
                </div>
                         </div>

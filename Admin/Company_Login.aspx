@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin.master" AutoEventWireup="false" CodeFile="Company_Login.aspx.vb" Inherits="Company_Login" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="false" CodeFile="Company_Login.aspx.vb" Inherits="Company_Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
   <!-- DataTables -->
@@ -16,7 +16,6 @@
 
   <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-      <asp:HiddenField ID="user_id" runat="server" />
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">

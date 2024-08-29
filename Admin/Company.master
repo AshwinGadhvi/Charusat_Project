@@ -183,7 +183,7 @@
     <!-- Brand Logo -->
     <a href="Home.aspx" class="brand-link">
       <img src="dist/img/charusat.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Company Name</span>
+      <span class="brand-text font-weight-light">Company Portal</span>
     </a>
 
     <!-- Sidebar -->
@@ -194,7 +194,8 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="Home.aspx" class="d-block">Company Person</a>
+          <asp:Label ID="lblUserName" class="brand-text font-weight-light" runat="server" Text="Welcome, !"></asp:Label>
+
         </div>
       </div>
 
@@ -254,10 +255,10 @@
     <!-- /.content -->
   </div>
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2024-2026 <a href="#">Charusat CDPC & TPO</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
+      <b>Version</b> 1.0.0
     </div>
   </footer>
 

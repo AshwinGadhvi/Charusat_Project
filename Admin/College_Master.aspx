@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin.master" AutoEventWireup="false" CodeFile="College_Master.aspx.vb" Inherits="College_Master" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="false" CodeFile="College_Master.aspx.vb" Inherits="College_Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
       <!-- DataTables -->
