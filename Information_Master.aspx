@@ -116,6 +116,7 @@
                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="admin" ForeColor="#FF3300" />
                     <div class="card-footer">
                         <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin"/>
+                        <asp:Button ID="show" runat="server" Text="Show" CssClass="btn btn-danger" />
                     </div>
                 </div>
             </div>
@@ -128,7 +129,7 @@
               </div>
               <!-- /.card-header -->
            <div class="card-body">
-            <asp:GridView ID="example1" runat="server" AutoGenerateColumns="False" DataKeyNames="company_id" DataSourceID="SqlDataSource1" CssClass="table table-bordered table-striped table-responsive">
+            <asp:GridView ID="example1" runat="server" AutoGenerateColumns="False" DataKeyNames="company_id" DataSourceID="SqlDataSource1" CssClass="table table-bordered table-striped table-responsive" Visible="false">
                 <Columns>
                     <asp:BoundField DataField="company_id" HeaderText="company_id" ReadOnly="True" InsertVisible="False" SortExpression="company_id"></asp:BoundField>
                     <asp:BoundField DataField="company_name" HeaderText="company_name" SortExpression="company_name"></asp:BoundField>
