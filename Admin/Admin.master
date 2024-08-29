@@ -193,7 +193,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="Home.aspx" class="d-block">Ashwin Gadhvi</a>
+          <asp:Label ID="lblAdminName" class="brand-text font-weight-light" runat="server" Text="Welcome, !"></asp:Label>
         </div>
       </div>
 
