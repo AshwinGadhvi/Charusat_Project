@@ -21,6 +21,18 @@ Partial Class Information_Master
             e.Row.TableSection = TableRowSection.TableHeader
         End If
     End Sub
+    Private Sub example1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles example1.RowCommand
+        Try
+            If e.CommandName = "del" Then
+                SqlDataSource1.DeleteParameters("company_id").DefaultValue = e.CommandArgument
+                SqlDataSource1.Delete()
+                example1.DataBind()
+                clear()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 
     Private Sub submit_Click(sender As Object, e As EventArgs) Handles submit.Click
         Try
@@ -41,7 +53,7 @@ Partial Class Information_Master
                 SqlDataSource1.InsertParameters("company_description").DefaultValue = company_description.Text
 
                 SqlDataSource1.Insert()
-
+                clear()
             Else
                 SqlDataSource1.UpdateParameters("company_name").DefaultValue = company_name.Text
                 SqlDataSource1.UpdateParameters("company_address").DefaultValue = company_address.Text
@@ -59,6 +71,7 @@ Partial Class Information_Master
                 SqlDataSource1.UpdateParameters("company_description").DefaultValue = company_description.Text
                 SqlDataSource1.UpdateParameters("company_id").DefaultValue = company_id.Value
                 SqlDataSource1.Update()
+                clear()
 
             End If
         Catch ex As Exception
@@ -103,5 +116,16 @@ Partial Class Information_Master
         company_description.Text = ""
         Session("Flag") = 0
 
+    End Sub
+
+    Private Sub show_Click(sender As Object, e As EventArgs) Handles show.Click
+        If show.Text = "Show" Then
+            show.Text = "Hide"
+            example1.Visible = True
+        ElseIf show.Text = "Hide" Then
+            show.Text = "Show"
+            example1.Visible = False
+
+        End If
     End Sub
 End Class
