@@ -226,9 +226,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="Information_Master.aspx" class="nav-link active">
+                <a href="Information_Master.aspx" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Information Master</p>
+                </a>
+              </li>
+                              <li class="nav-item">
+                <a href="Round_Information.aspx" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Round Information</p>
                 </a>
               </li>
             </ul>
