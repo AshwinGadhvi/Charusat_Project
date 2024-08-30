@@ -53,6 +53,7 @@ Partial Class Information_Master
                 SqlDataSource1.InsertParameters("company_contact_person_phone").DefaultValue = cm_c_p_m.Text
                 SqlDataSource1.InsertParameters("company_description").DefaultValue = company_description.Text
                 SqlDataSource1.InsertParameters("c_id").DefaultValue = Session("u_id")
+
                 SqlDataSource1.Insert()
                 clear()
             Else
