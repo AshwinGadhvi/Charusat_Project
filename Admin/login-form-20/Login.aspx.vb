@@ -23,8 +23,8 @@ Partial Class login_form_20_Login
             Session("admin_name") = ds1.Tables(0).Rows(0)("user_name").ToString()
             Response.Redirect("../Home.aspx")
         ElseIf ds2.Tables(0).Rows.Count > 0 Then
-            Session("user_name") = ds1.Tables(0).Rows(0)("user_name").ToString()
-            'Response.Redirect("../Home.aspx")
+            Session("user_name") = ds2.Tables(0).Rows(0)("user_name").ToString()
+            Response.Redirect("../employee.aspx")
         Else
             company_email.Text = ""
             lbl_msg.Text = "Incorrect Id And Password..!!!!" 'popup
