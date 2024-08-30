@@ -48,7 +48,7 @@
 
                             <div class="form-group col-4 d-inline-block">
                                 <label for="exampleInputEmail1">Company Name</label>
-                                <asp:DropDownList ID="company_name" runat="server" DataSourceID="SqlDataSource1" DataTextField="company_name" DataValueField="company_id" CssClass="form-control" readOnly></asp:DropDownList>
+                                <asp:DropDownList ID="company_name" runat="server" DataSourceID="SqlDataSource3" DataTextField="company_name" DataValueField="company_id" CssClass="form-control" readOnly></asp:DropDownList>
                                 <asp:SqlDataSource runat="server" ID="SqlDataSource3" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' SelectCommand="SELECT [company_id], [company_name] FROM [Company_Details] WHERE ([company_id] = @company_id) ORDER BY [company_name]">
                                     <SelectParameters>
                                         <asp:ControlParameter ControlID="company_id" PropertyName="Text" DefaultValue="0" Name="company_id" Type="Int32"></asp:ControlParameter>
@@ -62,13 +62,13 @@
                             </div>
                             <div class="form-group col-4 d-inline-block">
                                 <label for="exampleInputPassword1">Round Type</label>
-                                <asp:TextBox ID="round_type" runat="server" placeholder="Enter Company Round Type" class="form-control"></asp:TextBox>
+                                <asp:TextBox ID="round_type" runat="server" placeholder="Enter Round Type Ex: Aptitude,Coding..." class="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Enter Valid Round Type" ControlToValidate="round_type" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                             </div>
                             <div class="form-group col-4 d-inline-block">
                                 <label for="exampleInputPassword1">Round Date</label>
                       <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-    <asp:TextBox ID="round_date" runat="server" class="form-control datetimepicker-input" data-target="#datetimepicker1"></asp:TextBox>
+    <asp:TextBox ID="round_date" runat="server" class="form-control datetimepicker-input" data-target="#datetimepicker1" placeholder="Select The Date"></asp:TextBox>
     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
     </div>
@@ -87,7 +87,7 @@
                             </div>
                             <div class="form-group col-4 d-inline-block">
                                 <label for="exampleInputPassword1">Round Documents</label>
-                                <asp:TextBox ID="round_documents" runat="server" placeholder="Enter Company Email" class="form-control"></asp:TextBox>
+                                <asp:TextBox ID="round_documents" runat="server" placeholder="Enter Documents Require For Round" class="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Enter Valid Documents For Round" ControlToValidate="round_documents" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                             </div>
                             <div class="form-group col-4 d-inline-block">
@@ -131,12 +131,12 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Company Details</h3>
+                            <h3 class="card-title">Round Information</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             
-                            <asp:GridView ID="GridView1" runat="server" CssClass="table table-bordered table-striped table-responsive" AutoGenerateColumns="False" DataKeyNames="round_id" DataSourceID="SqlDataSource1">
+                            <asp:GridView ID="example1" runat="server" CssClass="table table-bordered table-striped table-responsive" AutoGenerateColumns="False" DataKeyNames="round_id" DataSourceID="SqlDataSource1" Visible="false">
                                 <Columns>
                                     <asp:BoundField DataField="round_id" HeaderText="round_id" ReadOnly="True" InsertVisible="False" SortExpression="round_id"></asp:BoundField>
                                     <asp:BoundField DataField="company_id" HeaderText="company_id" SortExpression="company_id"></asp:BoundField>
@@ -152,6 +152,14 @@
                                     <asp:BoundField DataField="round_prerequisites" HeaderText="round_prerequisites" SortExpression="round_prerequisites"></asp:BoundField>
                                     <asp:BoundField DataField="round_evalution" HeaderText="round_evalution" SortExpression="round_evalution"></asp:BoundField>
                                     <asp:BoundField DataField="company_name" HeaderText="company_name" SortExpression="company_name"></asp:BoundField>
+                                                        <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
+                    <ItemTemplate>
+                      <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
+                      &nbsp;&nbsp;
+                      <asp:ImageButton ID="del" runat="server" CommandName="del" CausesValidation="false" OnClientClick="return message(this);" Text="Delete" CommandArgument='<%# Eval("round_id") %>' Height="35px" Width="35px" ImageUrl="img/bin.png" />
+                      &nbsp;&nbsp;
+                    </ItemTemplate>
+                  </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
                             <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Round_Info_Master] WHERE [round_id] = @round_id" InsertCommand="INSERT INTO [Round_Info_Master] ([company_id], [round_number], [round_type], [round_date], [round_duration], [round_instruction], [round_documents], [round_interviewer], [round_link], [round_description], [round_prerequisites], [round_evalution], [company_name]) VALUES (@company_id, @round_number, @round_type, @round_date, @round_duration, @round_instruction, @round_documents, @round_interviewer, @round_link, @round_description, @round_prerequisites, @round_evalution, @company_name)" SelectCommand="SELECT * FROM [Round_Info_Master] WHERE ([company_id] = @company_id)" UpdateCommand="UPDATE [Round_Info_Master] SET [company_id] = @company_id, [round_number] = @round_number, [round_type] = @round_type, [round_date] = @round_date, [round_duration] = @round_duration, [round_instruction] = @round_instruction, [round_documents] = @round_documents, [round_interviewer] = @round_interviewer, [round_link] = @round_link, [round_description] = @round_description, [round_prerequisites] = @round_prerequisites, [round_evalution] = @round_evalution, [company_name] = @company_name WHERE [round_id] = @round_id">
