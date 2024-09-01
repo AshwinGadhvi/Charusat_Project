@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/Company.master" AutoEventWireup="false" CodeFile="Information_Master.aspx.vb" Inherits="Information_Master" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <!-- DataTables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -14,6 +16,9 @@
         </Scripts>
     </asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <Triggers>
+            <asp:PostBackTrigger ControlID="submit" />
+        </Triggers>
         <ContentTemplate>
             <asp:Label ID="u_id" runat="server" Visible="false" Text=""></asp:Label>
             <asp:HiddenField ID="company_id" runat="server" />
@@ -112,6 +117,11 @@
                                 <asp:TextBox ID="company_description" runat="server" placeholder="Enter Company Description" class="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ErrorMessage="Enter Valid Company Discription" ControlToValidate="company_description" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                             </div>
+                            <div class="form-group col-4 d-inline-block">
+                                <label for="exampleInputPassword1">Company Logo</label>
+                                <asp:AsyncFileUpload ID="company_logo" runat="server" cssClass="form-control"/>                      <asp:Label ID="lblimage" runat="server" Text=""></asp:Label>
+                                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ErrorMessage="Select Logo For Company" ControlToValidate="company_logo" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>--%>
+                            </div>
                         </div>
                     </div>
                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="admin" ForeColor="#FF3300" />
@@ -147,7 +157,15 @@
                     <asp:BoundField DataField="company_contact_person_email" HeaderText="company_contact_person_email" SortExpression="company_contact_person_email"></asp:BoundField>
                     <asp:BoundField DataField="company_contact_person_phone" HeaderText="company_contact_person_phone" SortExpression="company_contact_person_phone"></asp:BoundField>
                     <asp:BoundField DataField="company_description" HeaderText="company_description" SortExpression="company_description"></asp:BoundField>
-                    <asp:BoundField DataField="c_id" HeaderText="c_id" SortExpression="c_id" Visible="false"></asp:BoundField>
+                    <asp:BoundField DataField="c_id" HeaderText="c_id" SortExpression="c_id"></asp:BoundField>
+                    <asp:BoundField DataField="company_logo" HeaderText="company_logo" SortExpression="company_logo"></asp:BoundField>
+                    <asp:TemplateField HeaderText="Company Logo">
+
+                                <ItemTemplate>
+                                    <asp:Image ID="img" ImageUrl='<%# "../Admin/img/Logos/" + Eval("company_logo") %>' Width="150px" runat="server" />
+                                </ItemTemplate>
+
+                            </asp:TemplateField>
                     <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
                     <ItemTemplate>
                       <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
@@ -158,7 +176,7 @@
                   </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-               <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Company_Details] WHERE [company_id] = @company_id" InsertCommand="INSERT INTO [Company_Details] ([company_name], [company_address], [company_city], [company_state], [company_country], [company_zipcode], [company_email], [company_phone], [company_website], [company_industry], [company_contact_person_name], [company_contact_person_email], [company_contact_person_phone], [company_description], [c_id]) VALUES (@company_name, @company_address, @company_city, @company_state, @company_country, @company_zipcode, @company_email, @company_phone, @company_website, @company_industry, @company_contact_person_name, @company_contact_person_email, @company_contact_person_phone, @company_description, @c_id)" SelectCommand="SELECT * FROM [Company_Details] WHERE ([c_id] = @c_id)" UpdateCommand="UPDATE [Company_Details] SET [company_name] = @company_name, [company_address] = @company_address, [company_city] = @company_city, [company_state] = @company_state, [company_country] = @company_country, [company_zipcode] = @company_zipcode, [company_email] = @company_email, [company_phone] = @company_phone, [company_website] = @company_website, [company_industry] = @company_industry, [company_contact_person_name] = @company_contact_person_name, [company_contact_person_email] = @company_contact_person_email, [company_contact_person_phone] = @company_contact_person_phone, [company_description] = @company_description, [c_id] = @c_id WHERE [company_id] = @company_id">
+               <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Company_Details] WHERE [company_id] = @company_id" InsertCommand="INSERT INTO [Company_Details] ([company_name], [company_address], [company_city], [company_state], [company_country], [company_zipcode], [company_email], [company_phone], [company_website], [company_industry], [company_contact_person_name], [company_contact_person_email], [company_contact_person_phone], [company_description], [c_id], [company_logo]) VALUES (@company_name, @company_address, @company_city, @company_state, @company_country, @company_zipcode, @company_email, @company_phone, @company_website, @company_industry, @company_contact_person_name, @company_contact_person_email, @company_contact_person_phone, @company_description, @c_id, @company_logo)" SelectCommand="SELECT * FROM [Company_Details] WHERE ([c_id] = @c_id)" UpdateCommand="UPDATE [Company_Details] SET [company_name] = @company_name, [company_address] = @company_address, [company_city] = @company_city, [company_state] = @company_state, [company_country] = @company_country, [company_zipcode] = @company_zipcode, [company_email] = @company_email, [company_phone] = @company_phone, [company_website] = @company_website, [company_industry] = @company_industry, [company_contact_person_name] = @company_contact_person_name, [company_contact_person_email] = @company_contact_person_email, [company_contact_person_phone] = @company_contact_person_phone, [company_description] = @company_description, [c_id] = @c_id, [company_logo] = @company_logo WHERE [company_id] = @company_id">
                    <DeleteParameters>
                        <asp:Parameter Name="company_id" Type="Int32"></asp:Parameter>
                    </DeleteParameters>
@@ -178,6 +196,7 @@
                        <asp:Parameter Name="company_contact_person_phone" Type="String"></asp:Parameter>
                        <asp:Parameter Name="company_description" Type="String"></asp:Parameter>
                        <asp:Parameter Name="c_id" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_logo" Type="String"></asp:Parameter>
                    </InsertParameters>
                    <SelectParameters>
                        <asp:ControlParameter ControlID="u_id" PropertyName="Text" DefaultValue="0" Name="c_id" Type="String"></asp:ControlParameter>
@@ -198,6 +217,7 @@
                        <asp:Parameter Name="company_contact_person_phone" Type="String"></asp:Parameter>
                        <asp:Parameter Name="company_description" Type="String"></asp:Parameter>
                        <asp:Parameter Name="c_id" Type="String"></asp:Parameter>
+                       <asp:Parameter Name="company_logo" Type="String"></asp:Parameter>
                        <asp:Parameter Name="company_id" Type="Int32"></asp:Parameter>
                    </UpdateParameters>
             </asp:SqlDataSource>
