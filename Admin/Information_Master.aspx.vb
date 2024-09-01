@@ -38,25 +38,52 @@ Partial Class Information_Master
     Private Sub submit_Click(sender As Object, e As EventArgs) Handles submit.Click
         Try
             If Session("Flag") = 0 Then
-                SqlDataSource1.InsertParameters("company_name").DefaultValue = company_name.Text
-                SqlDataSource1.InsertParameters("company_address").DefaultValue = company_address.Text
-                SqlDataSource1.InsertParameters("company_city").DefaultValue = company_city.Text
-                SqlDataSource1.InsertParameters("company_state").DefaultValue = company_state.Text
-                SqlDataSource1.InsertParameters("company_country").DefaultValue = company_country.Text
-                SqlDataSource1.InsertParameters("company_zipcode").DefaultValue = company_zipcode.Text
-                SqlDataSource1.InsertParameters("company_email").DefaultValue = company_email.Text
-                SqlDataSource1.InsertParameters("company_phone").DefaultValue = company_phone.Text
-                SqlDataSource1.InsertParameters("company_website").DefaultValue = company_website.Text
-                SqlDataSource1.InsertParameters("company_industry").DefaultValue = company_industry.Text
-                SqlDataSource1.InsertParameters("company_contact_person_name").DefaultValue = cm_c_p_n.Text
-                SqlDataSource1.InsertParameters("company_contact_person_email").DefaultValue = cm_c_p_e.Text
-                SqlDataSource1.InsertParameters("company_contact_person_phone").DefaultValue = cm_c_p_m.Text
-                SqlDataSource1.InsertParameters("company_description").DefaultValue = company_description.Text
-                SqlDataSource1.InsertParameters("c_id").DefaultValue = Session("u_id")
+                Dim fname As String = company_logo.FileName
+                If company_logo.HasFile Then
+                    If fname.EndsWith("jpg") Or fname.EndsWith("png") Or fname.EndsWith("jpeg") Then
+                        company_logo.SaveAs(Server.MapPath("img/Logos/") & fname)
+                    End If
+                    SqlDataSource1.InsertParameters("company_name").DefaultValue = company_name.Text
+                    SqlDataSource1.InsertParameters("company_address").DefaultValue = company_address.Text
+                    SqlDataSource1.InsertParameters("company_city").DefaultValue = company_city.Text
+                    SqlDataSource1.InsertParameters("company_state").DefaultValue = company_state.Text
+                    SqlDataSource1.InsertParameters("company_country").DefaultValue = company_country.Text
+                    SqlDataSource1.InsertParameters("company_zipcode").DefaultValue = company_zipcode.Text
+                    SqlDataSource1.InsertParameters("company_email").DefaultValue = company_email.Text
+                    SqlDataSource1.InsertParameters("company_phone").DefaultValue = company_phone.Text
+                    SqlDataSource1.InsertParameters("company_website").DefaultValue = company_website.Text
+                    SqlDataSource1.InsertParameters("company_industry").DefaultValue = company_industry.Text
+                    SqlDataSource1.InsertParameters("company_contact_person_name").DefaultValue = cm_c_p_n.Text
+                    SqlDataSource1.InsertParameters("company_contact_person_email").DefaultValue = cm_c_p_e.Text
+                    SqlDataSource1.InsertParameters("company_contact_person_phone").DefaultValue = cm_c_p_m.Text
+                    SqlDataSource1.InsertParameters("company_description").DefaultValue = company_description.Text
+                    SqlDataSource1.InsertParameters("company_logo").DefaultValue = fname
+                    SqlDataSource1.InsertParameters("c_id").DefaultValue = Session("u_id")
 
-                SqlDataSource1.Insert()
-                clear()
+                    SqlDataSource1.Insert()
+                    clear()
+                Else
+                    lblimage.ForeColor = Drawing.Color.Red
+                    lblimage.Text = "Select Valid Image"
+                End If
             Else
+                Dim fname As String = lblimage.Text
+
+                If company_logo.HasFile Then
+
+                    'it will detele the file  if the file is already their
+                    If System.IO.File.Exists(Server.MapPath("img/Logos/") & fname) Then
+                        System.IO.File.Delete(Server.MapPath("img/Logos/") & fname)
+                    End If
+
+                    fname = company_logo.FileName
+                    If company_logo.HasFile Then
+                        If fname.EndsWith("jpg") Or fname.EndsWith("png") Or fname.EndsWith("jpeg") Then
+                            company_logo.SaveAs(Server.MapPath("img/Logos/") & fname)
+                        End If
+                    End If
+
+                End If
                 SqlDataSource1.UpdateParameters("company_name").DefaultValue = company_name.Text
                 SqlDataSource1.UpdateParameters("company_address").DefaultValue = company_address.Text
                 SqlDataSource1.UpdateParameters("company_city").DefaultValue = company_city.Text
@@ -71,6 +98,7 @@ Partial Class Information_Master
                 SqlDataSource1.UpdateParameters("company_contact_person_email").DefaultValue = cm_c_p_e.Text
                 SqlDataSource1.UpdateParameters("company_contact_person_phone").DefaultValue = cm_c_p_m.Text
                 SqlDataSource1.UpdateParameters("company_description").DefaultValue = company_description.Text
+                SqlDataSource1.UpdateParameters("company_logo").DefaultValue() = fname
                 SqlDataSource1.UpdateParameters("company_id").DefaultValue = company_id.Value
                 SqlDataSource1.UpdateParameters("c_id").DefaultValue = Session("u_id")
                 SqlDataSource1.Update()
@@ -99,6 +127,7 @@ Partial Class Information_Master
         cm_c_p_e.Text = example1.Rows(index).Cells(12).Text
         cm_c_p_m.Text = example1.Rows(index).Cells(13).Text
         company_description.Text = example1.Rows(index).Cells(14).Text
+        lblimage.Text = example1.Rows(index).Cells(15).Text
         company_id.Value = Convert.ToInt32(example1.DataKeys(index).Values("company_id"))
 
         Session("Flag") = 1
