@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/Company.master" AutoEventWireup="false" CodeFile="Information_Master.aspx.vb" Inherits="Information_Master" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <!-- DataTables -->
@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group col-4 d-inline-block">
                                 <label for="exampleInputPassword1">Company Logo</label>
-                                <asp:AsyncFileUpload ID="company_logo" runat="server" cssClass="form-control"/>                      <asp:Label ID="lblimage" runat="server" Text=""></asp:Label>
+                                <asp:FileUpload ID="company_logo" runat="server" cssClass="form-control"/>                      <asp:Label ID="lblimage" runat="server" Text=""></asp:Label>
                                 <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ErrorMessage="Select Logo For Company" ControlToValidate="company_logo" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>--%>
                             </div>
                         </div>
