@@ -27,12 +27,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Company Master</h1>
+                            <h1>Company Information</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="Company_Dashboard.aspx">Home</a></li>
-                                <li class="breadcrumb-item active">Company Master</li>
+                                <li class="breadcrumb-item active">Company Information</li>
                             </ol>
                         </div>
                     </div>
