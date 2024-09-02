@@ -10,11 +10,10 @@ Partial Class login_form_20_Login
         Dim ds As New Data.DataSet
         Dim ds1 As New Data.DataSet
         Dim ds2 As New Data.DataSet
+        Dim ds3 As New Data.DataSet
         ds = d.getData("select * from Company_Master where company_email='" & company_email.Text & "' and company_password='" & company_password.Text & "' ")
         ds1 = d.getData("select * from Admin_Master where user_name ='" & company_email.Text & "' and user_password ='" & company_password.Text & "' and user_type='Admin'")
         ds2 = d.getData("select * from Admin_Master where user_name ='" & company_email.Text & "' and user_password ='" & company_password.Text & "' and user_type='User'")
-
-
         If ds.Tables(0).Rows.Count > 0 Then
             Session("u_id") = ds.Tables(0).Rows(0)("company_id").ToString()
             Session("u_name") = ds.Tables(0).Rows(0)("company_name").ToString()
