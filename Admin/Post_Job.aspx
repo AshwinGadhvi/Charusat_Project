@@ -18,7 +18,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server" OnPreRender="UpdatePanel1_PreRender">
         <ContentTemplate>
             <asp:HiddenField ID="post_id" runat="server" />
 
@@ -104,14 +104,14 @@
                                 <InsertParameters>
                                     <asp:Parameter Name="company_id" Type="Int32" />
                                     <asp:Parameter Name="job_id" Type="Int32" />
-                                    <asp:Parameter Name="end_date" Type="DateTime" />
+                                    <asp:Parameter Name="end_date" DbType="Date" />
                                     <asp:Parameter Name="company_name" Type="String" />
                                     <asp:Parameter Name="job_title" Type="String" />
                                 </InsertParameters>
                                 <UpdateParameters>
                                     <asp:Parameter Name="company_id" Type="Int32" />
                                     <asp:Parameter Name="job_id" Type="Int32" />
-                                    <asp:Parameter Name="end_date" Type="DateTime" />
+                                    <asp:Parameter Name="end_date" DbType="Date" />
                                     <asp:Parameter Name="company_name" Type="String" />
                                     <asp:Parameter Name="job_title" Type="String" />
                                     <asp:Parameter Name="post_id" Type="Int32" />
@@ -126,10 +126,21 @@
             <script type="text/javascript">
                 $(function () {
                     $('#datetimepicker1').datetimepicker({
-                        format: 'YYYY-MM-DD hh:mm A',  // AM/PM format
+                        format: 'YYYY-MM-DD',  // AM/PM format
                         minDate: moment()  // Disable past dates
                     });
                 });
+
+                // Refresh datetime picker on update panel update
+                function refreshDateTimePicker() {
+                    $('#datetimepicker1').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        minDate: moment()
+                    });
+                }
+
+                // Call this function on UpdatePanel's Update event
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(refreshDateTimePicker);
             </script>
         </ContentTemplate>
     </asp:UpdatePanel>
