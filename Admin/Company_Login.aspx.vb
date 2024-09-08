@@ -75,6 +75,7 @@ Partial Class Company_Login
                 Else
                     Throw New ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.")
                 End If
+                MsgBox("Email Sent")
             End If
         Catch ex As ArgumentOutOfRangeException
             MsgBox(ex.Message)
