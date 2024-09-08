@@ -55,7 +55,7 @@
                 SqlDataSource1.Update()
                 clear()
             End If
-            clear()
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -119,9 +119,22 @@
     End Sub
 
     Public Sub clear()
-        company_name.SelectedIndex = ""
-        job_title.SelectedIndex = ""
+        BindCompanyDropDown()
+        BindJobDropDown(company_name.SelectedValue)
+
+        ' Set the dropdown to default state (-1 means no selection)
+        company_name.SelectedIndex = -1
+        job_title.SelectedIndex = -1
+
+        ' Clear other fields like end_date
         end_date.Text = ""
+
+        ' Reset the session flag to 0 (indicating insert mode)
         Session("Flag") = 0
+    End Sub
+
+    Protected Sub UpdatePanel1_PreRender(ByVal sender As Object, ByVal e As EventArgs)
+        ' Ensure that the DateTimePicker is correctly initialized after partial postbacks
+        ScriptManager.RegisterStartupScript(Me, Me.GetType(), "DateTimePickerInit", "refreshDateTimePicker();", True)
     End Sub
 End Class
