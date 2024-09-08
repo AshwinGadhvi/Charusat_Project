@@ -17,85 +17,47 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-10">
                         <!-- single-job-content -->
+
+                            <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSource1">
+                                <ItemTemplate>
+                                     <asp:HiddenField ID="hdnJobId" Value='<%# Eval("job_id") %>' runat="server" />
+        <asp:HiddenField ID="hdnCompanyId" Value='<%# Eval("company_id") %>' runat="server" />
+   
                         <div class="single-job-items mb-30">
-                            <div class="job-items">
+                                    <div class="job-items">
                                 <div class="company-img">
-                                    <a href="job_details.html"><img src="assets/img/icon/job-list1.png" alt=""></a>
+                                    <a href="#"><img src="<%# ("Admin/img/Logos/") + Eval("job_logo") %>" alt="" style="width:200px;height:50px"></a>
                                 </div>
                                 <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
+                                    <a href="#"><h4><%# Eval("job_title") %></h4></a>
                                     <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
+                                        <li><%# Eval("company_name") %></li>
+<li><i class="fas fa-map-marker-alt"></i><%# Eval("job_location") %></li><li><%# Eval("job_package") %></li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
+                                    <div class="items-link f-right">
+                                <a href="#"><%# Eval("job_type") %></a>
                                 <span>7 hours ago</span>
                             </div>
                         </div>
-                        <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="assets/img/icon/job-list2.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
-                         <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="assets/img/icon/job-list3.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
-                         <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="assets/img/icon/job-list4.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
+                                </ItemTemplate>
+                                
+                            </asp:Repeater>
+
+                         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+    ConnectionString="<%$ ConnectionStrings:Charusat_ProjectConnectionString %>"
+    SelectCommand="SELECT pc.*, cd.*, jm.*
+                    FROM Post_Company pc
+                    INNER JOIN Company_details cd ON pc.company_id = cd.company_id
+                    INNER JOIN Job_Master jm ON pc.job_id = jm.job_id
+                    WHERE pc.end_date >= @CurrentDate">
+    <SelectParameters>
+        <asp:Parameter Name="CurrentDate" Type="DateTime" />
+    </SelectParameters>
+</asp:SqlDataSource>
+                            
+                        
                     </div>
                 </div>
             </div>
