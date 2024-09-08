@@ -247,6 +247,12 @@
                   <p>Branch Master</p>
                 </a>
               </li>
+                           <li class="nav-item">
+                <a href="Post_Job.aspx" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Post Company</p>
+                </a>
+              </li>
             </ul>
           </li>
           
