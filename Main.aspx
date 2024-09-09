@@ -26,7 +26,7 @@
                         <div class="single-job-items mb-30">
                                     <div class="job-items">
                                 <div class="company-img">
-                                    <a href="#"><img src="<%# ("Admin/img/Logos/") + Eval("job_logo") %>" alt="" style="width:200px;height:50px"></a>
+                                    <a href="#"><img src="<%# ("Admin/img/Logos/") + Eval("job_logo") %>" alt="" style="width:100px;height:50px"></a>
                                 </div>
                                 <div class="job-tittle">
                                     <a href="#"><h4><%# Eval("job_title") %></h4></a>
@@ -38,7 +38,9 @@
                             </div>
                                     <div class="items-link f-right">
                                 <a href="#"><%# Eval("job_type") %></a>
-                                <span>7 hours ago</span>
+                                
+    <asp:Literal ID="litPostedTime" runat="server" Text='<%# CalculatePostedTime(Eval("end_date")) %>'></asp:Literal>
+
                             </div>
                         </div>
                                 </ItemTemplate>
