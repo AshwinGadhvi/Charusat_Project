@@ -44,6 +44,9 @@
 
                 SqlDataSource1.Insert()
                 clear()
+                'trigger sweetalert
+                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "SuccessInsert", "showSuccessMessage('inserted');", True)
+
             Else
                 ' Update existing record
                 SqlDataSource1.UpdateParameters("post_id").DefaultValue = post_id.Value
@@ -54,10 +57,15 @@
                 SqlDataSource1.UpdateParameters("job_title").DefaultValue = job_title.SelectedItem.Text
                 SqlDataSource1.Update()
                 clear()
+                ' Trigger SweetAlert success
+                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "SuccessUpdate", "showSuccessMessage('updated');", True)
+
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            ' Trigger SweetAlert error
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "ErrorMessage", "showErrorMessage('" & ex.Message & "');", True)
+
         End Try
     End Sub
 
@@ -78,12 +86,21 @@
 
     Protected Sub example1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles example1.RowCommand
         If e.CommandName = "del" Then
-            SqlDataSource1.DeleteParameters("post_id").DefaultValue = e.CommandArgument
-            SqlDataSource1.Delete()
-            example1.DataBind()
-            clear()
+            Try
+                SqlDataSource1.DeleteParameters("post_id").DefaultValue = e.CommandArgument
+                SqlDataSource1.Delete()
+                example1.DataBind()
+                clear()
+
+                ' Trigger SweetAlert success for deletion
+                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "SuccessDelete", "showSuccessMessage('deleted');", True)
+            Catch ex As Exception
+                ' Trigger SweetAlert error
+                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "ErrorMessage", "showErrorMessage('" & ex.Message & "');", True)
+            End Try
         End If
     End Sub
+
 
     Protected Sub Edit1_Click(sender As Object, e As EventArgs)
         ' Get the row index of the clicked edit button
