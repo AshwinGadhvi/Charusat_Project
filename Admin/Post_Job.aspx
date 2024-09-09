@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="false" CodeFile="Post_Job.aspx.vb" Inherits="Admin_Post_Job" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    
+    <!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- DataTables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -88,7 +94,9 @@
                                         <ItemTemplate>
                                             <asp:ImageButton ID="Edit1" runat="server" CommandName="Edit1" OnClick="Edit1_Click" ToolTip="Edit" ImageUrl="img/pen.png" Width="35px" Height="35px" />
                                             &nbsp;&nbsp;
-                                            <asp:ImageButton ID="del" runat="server" CommandName="del" OnClientClick="return message(this);" CommandArgument='<%# Eval("post_id") %>' ImageUrl="img/bin.png" Width="35px" Height="35px" />
+                                            <asp:ImageButton ID="del" runat="server" CommandName="del" OnClientClick='return confirmDelete("<%# Eval("post_id") %>");' CommandArgument='<%# Eval("post_id") %>' ImageUrl="img/bin.png" Width="35px" Height="35px" />
+
+
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -142,6 +150,45 @@
                 // Call this function on UpdatePanel's Update event
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(refreshDateTimePicker);
             </script>
+
+            <script type="text/javascript">
+    function showSuccessMessage(action) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Record has been ' + action + ' successfully.',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
+    function showErrorMessage(error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! ' + error,
+        });
+    }
+
+    // Confirmation before delete
+    function confirmDelete(postId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                __doPostBack('DeletePost', postId);
+            }
+        });
+        return false;  // Prevent default postback
+    }
+</script>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
