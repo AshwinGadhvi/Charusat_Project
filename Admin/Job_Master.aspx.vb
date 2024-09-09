@@ -34,6 +34,7 @@ Partial Class Admin_Job_Master
                 SqlDataSource1.InsertParameters("job_requirements").DefaultValue = job_requirements.Text
                 SqlDataSource1.InsertParameters("job_logo").DefaultValue = job_logo.Text
                 SqlDataSource1.Insert()
+                clear()
             Else
                 SqlDataSource1.UpdateParameters("company_id").DefaultValue = company_id.Text
                 SqlDataSource1.UpdateParameters("job_title").DefaultValue = job_title.Text
@@ -46,6 +47,7 @@ Partial Class Admin_Job_Master
                 SqlDataSource1.UpdateParameters("job_logo").DefaultValue = job_logo.Text
                 SqlDataSource1.UpdateParameters("job_id").DefaultValue = job_id.Value
                 SqlDataSource1.Update()
+                clear()
             End If
         Catch ex As Exception
 
@@ -68,7 +70,7 @@ Partial Class Admin_Job_Master
                 SqlDataSource1.DeleteParameters("job_id").DefaultValue = e.CommandArgument
                 SqlDataSource1.Delete()
                 example1.DataBind()
-
+                clear()
             End If
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -104,5 +106,13 @@ Partial Class Admin_Job_Master
         job_requirements.Text = example1.Rows(index).Cells(8).Text
         job_logo.Text = example1.Rows(index).Cells(9).Text
         Session("Flag") = 1
+    End Sub
+    Public Sub clear()
+        job_title.Text = ""
+        job_package.Text = ""
+        job_type.SelectedValue = 1
+        job_description.Text = ""
+        job_requirements.Text = ""
+
     End Sub
 End Class
