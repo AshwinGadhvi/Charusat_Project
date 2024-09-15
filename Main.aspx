@@ -10,7 +10,7 @@
                     <div class="col-lg-12">
                         <div class="section-tittle text-center">
                             <span>Recent Job</span>
-                            <h2>Compan Arrives</h2>
+                            <h2>Featured Company</h2>
 
                         </div>
                     </div>
