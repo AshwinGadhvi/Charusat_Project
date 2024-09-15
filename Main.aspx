@@ -10,7 +10,7 @@
                     <div class="col-lg-12">
                         <div class="section-tittle text-center">
                             <span>Recent Job</span>
-                            <h2>ha pikina ha</h2>
+                            <h2>ha loda ha</h2>
 
                         </div>
                     </div>
