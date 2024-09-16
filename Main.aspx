@@ -30,19 +30,24 @@
                                     <a href="#"><img src="<%# ("Admin/img/Logos/") + Eval("job_logo") %>" alt="" style="width:100px;height:50px"></a>
                                 </div>
                                 <div class="job-tittle">
-                                    <a href="#"><h4><%# Eval("job_title") %></h4></a>
+                                    <a href="#"><h4><%# Eval("company_name") %></h4></a>
                                     <ul>
-                                        <li><%# Eval("company_name") %></li>
-<li><i class="fas fa-map-marker-alt"></i><%# Eval("job_location") %></li><li><%# Eval("job_package") %></li>
+                                        <li><%# Eval("job_title") %></li>
+<li><i class="fas fa-map-marker-alt"></i><%# Eval("job_location") %></li><li>₹ <%# Eval("job_package") %></li>
                                     </ul>
                                 </div>
                             </div>
                                     <div class="items-link f-right">
-                                <a href="#"><%# Eval("job_type") %></a>
+                                        <asp:LinkButton ID="job_type" runat="server" class="btn" style="height:35px;display:flex;justify-content:center;align-items:center;" 
+    CommandArgument='<%# Eval("post_id") %>'><%# Eval("job_type") %>
+</asp:LinkButton>
+
+                                
                                 
     <asp:Literal ID="litPostedTime" runat="server" Text='<%# CalculatePostedTime(Eval("end_date")) %>'></asp:Literal>
 
                             </div>
+
                         </div>
                                 </ItemTemplate>
                                 
