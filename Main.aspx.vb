@@ -27,4 +27,10 @@
         SqlDataSource1.SelectParameters("CurrentDate").DefaultValue = DateTime.Now.ToString("yyyy-MM-dd")
     End Sub
 
+    Private Sub Repeater1_ItemCommand(source As Object, e As RepeaterCommandEventArgs) Handles Repeater1.ItemCommand
+        If e.CommandArgument <> "" Then
+            Session("post_id") = e.CommandArgument
+            Response.Redirect("Company_Information.aspx")
+        End If
+    End Sub
 End Class
