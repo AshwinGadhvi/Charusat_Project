@@ -15,7 +15,7 @@
 	
 	<link rel="stylesheet" href="css/style.css">
 </head>
-<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
+<body class="img js-fullheight" style="background-image: url(images/CDPC.png);">
     <form id="form1" runat="server">
 
     	<section class="ftco-section">
@@ -40,7 +40,7 @@
 	              <span toggle="#company_password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
 	            </div>
 	            <div class="form-group">
-            <asp:Button ID="Login" runat="server" Text="Sign In" class="form-control btn btn-primary submit px-3" />
+            <asp:Button ID="Login" runat="server" Text="Sign In" class="form-control btn submit px-3" />
 	            	
 	            </div>
                         <asp:Label ID="lbl_msg" runat="server" Text=""></asp:Label>
