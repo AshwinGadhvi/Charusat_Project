@@ -1,12 +1,14 @@
-﻿
+﻿Imports BCrypt.Net ' Import BCrypt library
+
 Partial Class Admin_Master
     Inherits System.Web.UI.Page
+
     Private Sub example1_PreRender(sender As Object, e As EventArgs) Handles example1.PreRender
         Try
             example1.UseAccessibleHeader = True
             example1.HeaderRow.TableSection = TableRowSection.TableHeader
         Catch ex As Exception
-
+            ' Handle exceptions if necessary
         End Try
     End Sub
 
@@ -18,17 +20,22 @@ Partial Class Admin_Master
 
     Private Sub submit_Click(sender As Object, e As EventArgs) Handles submit.Click
         Try
+            ' Hash the password using BCrypt before storing it in the database
+            Dim hashedPassword As String = BCrypt.Net.BCrypt.HashPassword(user_password.Text)
+
             If Session("Flag") = 0 Then
-                SqlDataSource1.InsertParameters("user_name").DefaultValue() = user_name.Text
-                SqlDataSource1.InsertParameters("user_password").DefaultValue() = user_password.Text
-                SqlDataSource1.InsertParameters("user_type").DefaultValue() = user_type.SelectedValue
+                ' Insert new user with hashed password
+                SqlDataSource1.InsertParameters("user_name").DefaultValue = user_name.Text
+                SqlDataSource1.InsertParameters("user_password").DefaultValue = hashedPassword ' Use hashed password
+                SqlDataSource1.InsertParameters("user_type").DefaultValue = user_type.SelectedValue
                 SqlDataSource1.Insert()
                 popup()
             Else
-                SqlDataSource1.UpdateParameters("user_name").DefaultValue() = user_name.Text
-                SqlDataSource1.UpdateParameters("user_password").DefaultValue() = user_password.Text
-                SqlDataSource1.UpdateParameters("user_type").DefaultValue() = user_type.SelectedValue
-                SqlDataSource1.UpdateParameters("user_id").DefaultValue() = user_id.Value
+                ' Update existing user with hashed password
+                SqlDataSource1.UpdateParameters("user_name").DefaultValue = user_name.Text
+                SqlDataSource1.UpdateParameters("user_password").DefaultValue = hashedPassword ' Use hashed password
+                SqlDataSource1.UpdateParameters("user_type").DefaultValue = user_type.SelectedValue
+                SqlDataSource1.UpdateParameters("user_id").DefaultValue = user_id.Value
                 SqlDataSource1.Update()
                 popup()
             End If
@@ -43,7 +50,6 @@ Partial Class Admin_Master
         End If
     End Sub
 
-
     Protected Sub Edit1_Click(sender As Object, e As EventArgs)
         Dim gvRow As GridViewRow = CType(CType(sender, Control).Parent.Parent, GridViewRow)
         Dim index As Integer = gvRow.RowIndex
@@ -53,6 +59,7 @@ Partial Class Admin_Master
         user_id.Value = Convert.ToInt32(example1.DataKeys(index).Values("user_id"))
         Session("Flag") = 1
     End Sub
+
     Protected Sub example1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles example1.RowCommand
         If e.CommandName = "del" Then
             SqlDataSource1.DeleteParameters("user_id").DefaultValue = e.CommandArgument
