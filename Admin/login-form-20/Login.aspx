@@ -32,7 +32,7 @@
 		      	
 		      		<div class="form-group">
 		      			
-                          <asp:TextBox ID="company_email" runat="server" required  class="form-control" placeholder="Enter The Company Email"></asp:TextBox>
+                          <asp:TextBox ID="company_email" runat="server" required  class="form-control" placeholder="Enter A Email"></asp:TextBox>
 		      		</div>
 	            <div class="form-group">
 	              
