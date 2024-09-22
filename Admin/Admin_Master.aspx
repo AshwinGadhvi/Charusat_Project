@@ -8,7 +8,22 @@
     <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <style>
+    .modalPopup {
+        width: 600px; /* Increase the width */
+        height: 400px; /* Increase the height */
+        background-color: white; /* Ensure background color is set */
+        padding: 20px; /* Optional padding */
+    }
+
+    .modal-content {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
 </asp:Content>
+
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -18,56 +33,44 @@
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <asp:HiddenField ID="user_id" runat="server" />
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Admin Master</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="Home.aspx">Home</a></li>
-                                <li class="breadcrumb-item active">Admin Master</li>
-                            </ol>
-                        </div>
+            <asp:Button ID="btnShowPopup" runat="server" Text="New Admin" CssClass="btn btn-primary m-2" OnClientClick="return false;" />
+            
+            <!-- Modal Popup Content -->
+            <asp:Panel ID="pnlAdminForm" runat="server" CssClass="modalPopup" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Admin Master</h4>
+                        <button type="button" class="close" onclick="closeModal();" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-            </section>
-            <!-- Form -->
-            <div class="col-md-6">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Admin Master</h3>
-                    </div>
-                    <div class="card-body">
+                    <div class="modal-body">
+                        <asp:HiddenField ID="user_id" runat="server" />
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Admin Name</label>
+                            <label for="user_name">Admin Name</label>
                             <asp:TextBox ID="user_name" runat="server" class="form-control" placeholder="Enter Name"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Valid Name" ControlToValidate="user_name" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
+                            <label for="user_password">Password</label>
                             <asp:TextBox ID="user_password" runat="server" placeholder="Enter Password" class="form-control" TextMode="Password"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid Password" ControlToValidate="user_password" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid Password" ControlToValidate="user_password" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">User Type</label>
+                            <label for="user_type">User Type</label>
                             <asp:DropDownList ID="user_type" runat="server" CssClass="form-control">
                                 <asp:ListItem>Admin</asp:ListItem>
                                 <asp:ListItem>User</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>
-                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="admin" ForeColor="#FF3300" />
-                    <div class="card-footer">
-                        <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
+                    <div class="modal-footer">
+                        <asp:Button ID="submit" runat="server" Text="Submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
+                        <asp:Button ID="btnClose" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClientClick="closeModal();" />
                     </div>
                 </div>
-            </div>
-
-            <!-- Table -->
+            </asp:Panel>
+              <!-- Table -->
             <div class="content">
                 <div class="container-fluid">
                     <div class="card">
@@ -80,10 +83,10 @@
                 <asp:GridView ID="example1" runat="server" CssClass="table table-bordered table-striped" AutoGenerateColumns="False" DataKeyNames="user_id" DataSourceID="SqlDataSource1">
 
                         <Columns>
-                            <asp:BoundField DataField="user_id" HeaderText="user_id" ReadOnly="True" InsertVisible="False" SortExpression="user_id"></asp:BoundField>
-                            <asp:BoundField DataField="user_name" HeaderText="user_name" SortExpression="user_name"></asp:BoundField>
-                            <asp:BoundField DataField="user_password" HeaderText="user_password" SortExpression="user_password"></asp:BoundField>
-                            <asp:BoundField DataField="user_type" HeaderText="user_type" SortExpression="user_type"></asp:BoundField>
+                            <asp:BoundField DataField="user_id" HeaderText="user_id" ReadOnly="True" InsertVisible="False" SortExpression="user_id" Visible="false"></asp:BoundField>
+                            <asp:BoundField DataField="user_name" HeaderText="User Name" SortExpression="user_name"></asp:BoundField>
+                            <asp:BoundField DataField="user_password" HeaderText="user_password" SortExpression="user_password" Visible="false"></asp:BoundField>
+                            <asp:BoundField DataField="user_type" HeaderText="User Type" SortExpression="user_type"></asp:BoundField>
                             <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
@@ -117,24 +120,16 @@
                 </div>
             </div>
             <!-- Table end -->
-              <script type="text/javascript">
-    $("#ContentPlaceHolder1_example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-    </script>
+            <!-- Modal Extender -->
+            <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="btnShowPopup"
+                PopupControlID="pnlAdminForm" BackgroundCssClass="modal-background" />
+
+            <script type="text/javascript">
+                function closeModal() {
+                    $find('<%= ModalPopupExtender1.ClientID %>').hide();
+                }
+            </script>
         </ContentTemplate>
     </asp:UpdatePanel>
-
-  
 </asp:Content>
+
