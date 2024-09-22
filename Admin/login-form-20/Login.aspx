@@ -4,8 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-      	    <title>CHARUSAT | Best Private University in Gujarat</title>
-       <link rel="icon" type="image" href="../../logo.png">
+    <title>CHARUSAT | Best Private University in Gujarat</title>
+    <link rel="icon" type="image" href="../../logo.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
