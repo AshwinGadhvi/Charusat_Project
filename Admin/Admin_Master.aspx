@@ -11,9 +11,9 @@
     <style>
     .modalPopup {
         width: 600px; /* Increase the width */
-        height: 400px; /* Increase the height */
-        background-color: white; /* Ensure background color is set */
-        padding: 20px; /* Optional padding */
+        height: 420px; /* Increase the height */
+        /*background-color: white;*/ /* Ensure background color is set */
+        /*padding: 20px; /* Optional padding */
     }
 
     .modal-content {
@@ -38,7 +38,7 @@
             <!-- Modal Popup Content -->
             <asp:Panel ID="pnlAdminForm" runat="server" CssClass="modalPopup" style="display:none;">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-primary">
                         <h4 class="modal-title">Admin Master</h4>
                         <button type="button" class="close" onclick="closeModal();" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -64,7 +64,7 @@
                             </asp:DropDownList>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer bg-grey">
                         <asp:Button ID="submit" runat="server" Text="Submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
                         <asp:Button ID="btnClose" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClientClick="closeModal();" />
                     </div>
