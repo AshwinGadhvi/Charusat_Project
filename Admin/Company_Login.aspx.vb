@@ -25,13 +25,11 @@ Partial Class Company_Login
             If Session("Flag") = 0 Then
                 SqlDataSource1.InsertParameters("company_name").DefaultValue = company_name.Text
                 SqlDataSource1.InsertParameters("company_email").DefaultValue = company_email.Text
-                SqlDataSource1.InsertParameters("company_password").DefaultValue = company_password.Text
                 SqlDataSource1.Insert()
                 clear()
             Else
                 SqlDataSource1.UpdateParameters("company_name").DefaultValue = company_name.Text
                 SqlDataSource1.UpdateParameters("company_email").DefaultValue = company_email.Text
-                SqlDataSource1.UpdateParameters("company_password").DefaultValue = company_password.Text
                 SqlDataSource1.UpdateParameters("company_id").DefaultValue = company_id.Value
                 SqlDataSource1.Update()
                 clear()
@@ -52,7 +50,6 @@ Partial Class Company_Login
         Dim index As Integer = gvRow.RowIndex
         company_name.Text = example1.Rows(index).Cells(1).Text
         company_email.Text = example1.Rows(index).Cells(2).Text
-        company_password.Text = example1.Rows(index).Cells(3).Text
         company_id.Value = Convert.ToInt32(example1.DataKeys(index).Values("company_id"))
         Session("Flag") = 1
     End Sub
@@ -70,8 +67,7 @@ Partial Class Company_Login
                 If index >= 0 AndAlso index < example1.Rows.Count Then
                     Dim email As String = example1.Rows(index).Cells(2).Text
                     Dim companyName As String = example1.Rows(index).Cells(1).Text
-                    Dim password As String = example1.Rows(index).Cells(3).Text
-                    SendEmail(email, companyName, password)
+                    SendEmail(email, companyName)
                 Else
                     Throw New ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.")
                 End If
@@ -86,7 +82,7 @@ Partial Class Company_Login
         End Try
     End Sub
 
-    Private Sub SendEmail(email As String, companyName As String, password As String)
+    Private Sub SendEmail(email As String, companyName As String)
         Try
             Dim fromAddress As New MailAddress("tfgpashwin397@gmail.com", "TFGP Ashwin")
             Dim toAddress As New MailAddress(email)
@@ -94,10 +90,9 @@ Partial Class Company_Login
             Dim subject As String = "Company Credential Information"
             Dim body As New StringBuilder()
             body.AppendLine("Hello! I hope this email finds you well.")
-            body.AppendLine("Your email and password for logging into the Charusat Company Dashboard are:")
+            body.AppendLine("Your email for logging into the Charusat Company Dashboard are:")
             body.AppendLine("Email: " & email)
-            body.AppendLine("Password: " & password)
-
+            body.AppendLine("Website: " & weblink.Text)
             Dim smtp As New SmtpClient("smtp.gmail.com", 587)
             smtp.EnableSsl = True
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network
@@ -121,7 +116,6 @@ Partial Class Company_Login
 
     Public Sub clear()
         company_name.Text = ""
-        company_password.Text = ""
         company_email.Text = ""
         company_id.Value = ""
         Session("Flag") = 0
