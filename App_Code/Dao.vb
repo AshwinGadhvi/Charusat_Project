@@ -47,8 +47,8 @@ Public Class Dao
         'information for sending mail
         Dim message As MailMessage = New MailMessage
         to_user = send_email
-        from = "passreset481@gmail.com"
-        pass = "rrcoxxrxdkguckps"
+        from = "tfgpashwin397@gmail.com"
+        pass = "rayv ephx hpbd gezo"
         msg_part = msg
 
         message.To.Add(New MailAddress(send_email))
@@ -64,7 +64,10 @@ Public Class Dao
         ' smtp.DeliveryMethod = smtp.DeliveryMethod.Network
         smtp.Credentials = New System.Net.NetworkCredential(from, pass)
         smtp.Send(message)
+
     End Sub
+
+
     Public Function getData(ByVal qry As String) As Data.DataSet
         Dim ds As New Data.DataSet
         Dim da As New SqlDataAdapter(qry, conn)
