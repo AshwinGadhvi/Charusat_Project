@@ -68,4 +68,8 @@ Partial Class login_form_20_Login
         lbl_msg.ForeColor = Drawing.Color.White
         company_email.Focus()
     End Sub
+
+    Private Sub Forgot_Click(sender As Object, e As EventArgs) Handles Forgot.Click
+
+    End Sub
 End Class
