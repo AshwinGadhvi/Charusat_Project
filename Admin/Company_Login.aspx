@@ -17,6 +17,7 @@
   <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
       <!-- Content Header (Page header) -->
+<asp:TextBox ID="weblink" runat="server" Visible="false" Text="http://localhost:51186/Admin/login-form-20/Login.aspx"></asp:TextBox>
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
@@ -50,11 +51,7 @@
               <asp:TextBox ID="company_email" runat="server" class="form-control" placeholder="Enter Company Email"></asp:TextBox>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Enter Valid Email" ControlToValidate="company_email" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
             </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Company Password</label>
-              <asp:TextBox ID="company_password" runat="server" placeholder="Enter Company Password" class="form-control" TextMode="Password"></asp:TextBox>
-              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid Password" ControlToValidate="company_password" Display="static" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
-            </div>
+            
           </div>
 <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="admin" ForeColor="#FF3300" />
           <div class="card-footer">
@@ -74,11 +71,11 @@
             <div class="card-body">
               <asp:GridView ID="example1" runat="server" CssClass="table table-bordered table-striped" AutoGenerateColumns="False" DataKeyNames="company_id" DataSourceID="SqlDataSource1" OnRowCommand="example1_RowCommand">
                 <Columns>
-                  <asp:BoundField DataField="company_id" HeaderText="company_id" ReadOnly="True" InsertVisible="False" SortExpression="company_id"></asp:BoundField>
-                  <asp:BoundField DataField="company_name" HeaderText="company_name" SortExpression="company_name"></asp:BoundField>
-                  <asp:BoundField DataField="company_email" HeaderText="company_email" SortExpression="company_email"></asp:BoundField>
-                  <asp:BoundField DataField="company_password" HeaderText="company_password" SortExpression="company_password"></asp:BoundField>
-                  <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
+                  <asp:BoundField DataField="company_id" HeaderText="company_id" ReadOnly="True" InsertVisible="False" SortExpression="company_id" Visible="false"></asp:BoundField>
+                  <asp:BoundField DataField="company_name" HeaderText="Comapny Password" SortExpression="company_name"></asp:BoundField>
+                  <asp:BoundField DataField="company_email" HeaderText="Company Email" SortExpression="company_email"></asp:BoundField>
+                  <asp:BoundField DataField="company_password" HeaderText="company_password" SortExpression="company_password" Visible="false"></asp:BoundField>
+                       <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
                     <ItemTemplate>
                       <asp:ImageButton ID="Edit1" runat="server" Text="Edit" CommandName="Edit1" OnClick="Edit1_Click" CausesValidation="false" ToolTip="Edit User" ImageUrl="img/pen.png" Width="35px" Height="35px" />
                       &nbsp;&nbsp;
