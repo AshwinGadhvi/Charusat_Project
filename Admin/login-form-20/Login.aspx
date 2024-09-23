@@ -45,8 +45,8 @@
 	            </div>
                         <asp:Label ID="lbl_msg" runat="server" Text=""></asp:Label>
 	           <div class="w-50 text-md-right" >
-<asp:Button ID="Forgot" runat="server" Text="Forgot Password" style="color: #fff;background-color:transparent;border:none;margin-left:220px;"/>
-									
+
+                   <asp:LinkButton ID="Forgot" runat="server" style="color: #fff;background-color:transparent;border:none;margin-left:300px;" PostBackUrl="~/Admin/login-form-20/Forgot_Password.aspx">Forgot</asp:LinkButton>				
 								</div>
 	          
 
