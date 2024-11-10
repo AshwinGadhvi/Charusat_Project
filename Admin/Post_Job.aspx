@@ -20,13 +20,64 @@
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+ <style>
+        .modalPopup {
+            width: 600px;
+            height: 420px;
+        }
+        .modal-content {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" OnPreRender="UpdatePanel1_PreRender">
         <ContentTemplate>
-            <asp:HiddenField ID="post_id" runat="server" />
+             <asp:Button ID="btnShowPopup" runat="server" Text="New Post" CssClass="btn btn-primary m-2" OnClientClick="return false;" />
+
+              <!-- Modal Popup Content -->
+            <asp:Panel ID="pnlAdminForm" runat="server" CssClass="modalPopup" style="display:none;">
+                <asp:HiddenField ID="post_id" runat="server" />
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title">Post Company Master</h4>
+                        <button type="button" class="close" onclick="closeModal();" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <asp:HiddenField ID="user_id" runat="server" />
+                       <div class="form-group">
+                            <label for="company_name">Select Company</label>
+                            <asp:DropDownList ID="company_name" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
+                        </div>
+                      <div class="form-group">
+                            <label for="job_title">Select Job</label>
+                            <asp:DropDownList ID="job_title" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
+                        </div>
+                         <div class="form-group">
+                            <label for="end_date">End Date</label>
+                            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                <asp:TextBox ID="end_date" runat="server" CssClass="form-control datetimepicker-input" data-target="#datetimepicker1" placeholder="Select The Date"></asp:TextBox>
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-grey">
+                        <asp:Button ID="submit" runat="server" Text="Submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
+                        <asp:Button ID="btnClose" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClientClick="closeModal();" />
+                    </div>
+                </div>
+                
+            </asp:Panel>
+
+
+<%--            <asp:HiddenField ID="post_id" runat="server" />
 
             <section class="content-header">
                 <div class="container-fluid">
@@ -73,7 +124,7 @@
                         <asp:Button ID="submit" runat="server" Text="Submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
                     </div>
                 </div>
-            </div>
+            </div>--%>
 
             <div class="content">
                 <div class="container-fluid">
@@ -84,12 +135,13 @@
                         <div class="card-body">
                             <asp:GridView ID="example1" runat="server" AutoGenerateColumns="False" DataKeyNames="post_id" DataSourceID="SqlDataSource1" CssClass="table table-bordered table-striped">
                                 <Columns>
-                                    <asp:BoundField DataField="post_id" HeaderText="Post ID" ReadOnly="True" SortExpression="post_id" />
-                                    <asp:BoundField DataField="company_id" HeaderText="Company ID" SortExpression="company_id" />
-                                    <asp:BoundField DataField="job_id" HeaderText="Job ID" SortExpression="job_id" />
-                                    <asp:BoundField DataField="end_date" HeaderText="End Date" SortExpression="end_date" />
+                                    <asp:BoundField DataField="post_id" HeaderText="Post ID" ReadOnly="True" SortExpression="post_id" Visible="false" />
+                                    <asp:BoundField DataField="company_id" HeaderText="Company ID" SortExpression="company_id" visible="false"/>
+                                    <asp:BoundField DataField="job_id" HeaderText="Job ID" SortExpression="job_id" Visible="false" />
+                                    
                                     <asp:BoundField DataField="company_name" HeaderText="Company Name" SortExpression="company_name" />
                                     <asp:BoundField DataField="job_title" HeaderText="Job Title" SortExpression="job_title" />
+                                    <asp:BoundField DataField="end_date" HeaderText="End Date" SortExpression="end_date" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="Edit1" runat="server" CommandName="Edit1" OnClick="Edit1_Click" ToolTip="Edit" ImageUrl="img/pen.png" Width="35px" Height="35px" />
@@ -152,6 +204,7 @@
             </script>
 
             <script type="text/javascript">
+
     function showSuccessMessage(action) {
         Swal.fire({
             icon: 'success',
@@ -188,6 +241,44 @@
         return false;  // Prevent default postback
     }
 </script>
+             <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="btnShowPopup"
+                PopupControlID="pnlAdminForm" BackgroundCssClass="modal-background" />
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.print.min.js"></script>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    // Initialize DataTable
+                    $('#<%= UpdatePanel1.ClientID %>').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copy', 'csv', 'excel', 'pdf', 'print'
+                        ]
+                    });
+
+                    // Custom function to show modal
+                    $('#<%= btnShowPopup.ClientID %>').click(function () {
+                        $('#<%= pnlAdminForm.ClientID %>').show();
+                    });
+                });
+
+                // Function to close the modal
+                function closeModal() {
+                    $('#<%= pnlAdminForm.ClientID %>').hide();
+                }
+
+                // Confirm delete action
+                function message(button) {
+                    return confirm("Are you sure you want to delete this record?");
+                }
+            </script>
 
         </ContentTemplate>
     </asp:UpdatePanel>
