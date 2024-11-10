@@ -12,7 +12,7 @@ Partial Class Admin_login_form_20_Forgot_Password
             Dim d As New Dao
             Dim ds As New Data.DataSet
             ds = d.getData("select company_email from Company_Master where company_email='" & txtEmail.Text & "'")
-            If ds.Tables(0).Rows.Count >= 1 Then
+            If ds.Tables(0).Rows.Count > 0 Then
                 Dim otp As String
                 Dim rand As Random = New Random()
                 otp = (rand.Next(999999)).ToString()

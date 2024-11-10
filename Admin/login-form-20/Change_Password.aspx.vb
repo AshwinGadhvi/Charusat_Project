@@ -1,5 +1,6 @@
 ﻿Imports Dao
 Imports System.Data
+Imports BCrypt.Net
 Partial Class login_form_20_Change_Password
     Inherits System.Web.UI.Page
 
