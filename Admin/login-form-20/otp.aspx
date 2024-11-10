@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body class="img js-fullheight" style="background-image: url(images/CDPC.png);">
+    <asp:Label ID="name" runat="server" Text="" Visible=""></asp:Label>
     <form id="form1" runat="server">
         	<section class="ftco-section">
 		<div class="container">
@@ -35,7 +36,7 @@
 		      		</div>
 
 	            <div class="form-group">
-                <asp:Button ID="submit" runat="server" Text="Confirm" class="form-control btn submit px-3" />
+                <asp:Button ID="submit" runat="server" Text="Confirm" class="form-control btn submit px-3"  />
 	            	
 	            </div>
 

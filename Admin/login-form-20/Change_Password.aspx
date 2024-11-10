@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body class="img js-fullheight" style="background-image: url(images/CDPC.png);">
+   <asp:Label ID="se" runat="server" Text="" Visible="false"></asp:Label>
     <form id="form1" runat="server">
         	<section class="ftco-section">
 		<div class="container">

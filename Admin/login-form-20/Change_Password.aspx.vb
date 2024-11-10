@@ -5,11 +5,12 @@ Partial Class login_form_20_Change_Password
     Inherits System.Web.UI.Page
 
     Private Sub Login_Click(sender As Object, e As EventArgs) Handles Login.Click
-        If c1.Text = c2.Text Then
+        se.Text = Session("u_name")
+        If c1.Text.Equals(c2.Text) Then
             Dim d As New Dao
-            Dim obj As DataSet
             Dim hashedPassword As String = BCrypt.Net.BCrypt.HashPassword(c2.Text)
-            obj = d.get_data("update Company_Master set company_password='" & hashedPassword & "' where company_name='" & Session("u_name") & "'")
+
+            d.modifyData("update Company_Master set company_password='" & hashedPassword & "' where company_name='" & se.Text & "'")
 
             Response.Redirect("Login.aspx")
         Else

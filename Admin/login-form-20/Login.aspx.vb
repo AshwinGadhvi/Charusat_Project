@@ -67,7 +67,4 @@ Partial Class login_form_20_Login
         company_email.Focus()
     End Sub
 
-    Private Sub Forgot_Click(sender As Object, e As EventArgs) Handles Forgot.Click
-        ' Implementation for forgot password logic
-    End Sub
 End Class

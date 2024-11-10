@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body class="img js-fullheight" style="background-image: url(images/CDPC.png);">
+    <asp:Label ID="sess" Visible="false" runat="server"></asp:Label>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' SelectCommand="SELECT [company_email] FROM [Company_Master] WHERE ([company_email] = @company_email)">
         <SelectParameters>
             <asp:ControlParameter ControlID="txtEmail" PropertyName="Text" DefaultValue="0" Name="company_email" Type="String"></asp:ControlParameter>
