@@ -68,15 +68,29 @@ Partial Class College_Master
     End Sub
 
     Private Sub example1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles example1.RowCommand
-        Try
-            If e.CommandName = "del" Then
+        If e.CommandName = "del" Then
+            Try
                 SqlDataSource1.DeleteParameters("college_id").DefaultValue = e.CommandArgument
                 SqlDataSource1.Delete()
                 example1.DataBind()
                 clear()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+
+                ' Trigger SweetAlert success for deletion
+                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "SuccessDelete", "showSuccessMessage('deleted');", True)
+            Catch ex As Exception
+                ' Trigger SweetAlert error
+                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "ErrorMessage", "showErrorMessage('" & ex.Message & "');", True)
+
+                MsgBox(ex.Message)
+            End Try
+        End If
+    End Sub
+    Public Sub popup()
+        example1.DataBind()
+        ScriptManager.RegisterStartupScript(Me, Me.GetType(), "showalert", "success();", True)
+        'user_name.Text = ""
+        'user_password.Text = ""
+        'user_type.SelectedValue = "Select Type"
+        'user_id.Value = ""
     End Sub
 End Class
