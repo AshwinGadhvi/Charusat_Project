@@ -11,7 +11,10 @@ Partial Class Admin_Master
             ' Handle exceptions if necessary
         End Try
     End Sub
-
+    Private Sub BindGrid()
+        ' Optionally rebind the grid if needed, otherwise, the SqlDataSource should handle this
+        example1.DataBind()
+    End Sub
     Private Sub example1_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles example1.RowDataBound
         If (e.Row.RowType = DataControlRowType.Header) Then
             e.Row.TableSection = TableRowSection.TableHeader
@@ -47,6 +50,7 @@ Partial Class Admin_Master
     Private Sub Admin_Master_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             Session.Add("Flag", 0)
+            BindGrid()
         End If
     End Sub
 

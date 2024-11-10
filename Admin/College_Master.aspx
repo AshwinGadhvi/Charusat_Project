@@ -1,79 +1,85 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="false" CodeFile="College_Master.aspx.vb" Inherits="College_Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
       <!-- DataTables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+     <style>
+        .modalPopup {
+            width: 600px;
+            height: 600px;
+        }
+        .modal-content {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         <Scripts>
         </Scripts>
     </asp:ScriptManager>
+
+
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <asp:HiddenField ID="college_id" runat="server" />
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>College Master</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="Home.aspx">Home</a></li>
-                                <li class="breadcrumb-item active">College Master</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Form -->
-            <div class="col-md-12">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">College Master</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
+             <asp:Button ID="btnShowPopup" runat="server" Text="New College" CssClass="btn btn-primary m-2" OnClientClick="return false;" />
+              <asp:HiddenField ID="college_id" runat="server" />
 
-                        <div class="form-group col-6 d-inline-block">
+             <!-- Modal Popup Content -->
+            <asp:Panel ID="pnlAdminForm" runat="server" CssClass="modalPopup" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title">College Master</h4>
+                        <button type="button" class="close" onclick="closeModal();" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <asp:HiddenField ID="user_id" runat="server" />
+                         <div class="form-group col-12 d-inline-block">
                             <label for="exampleInputEmail1">College Name</label>
                             <asp:TextBox ID="college_name" runat="server" class="form-control" placeholder="Enter Name Of College"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter Valid Name Of College" ControlToValidate="college_name" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true"></asp:RequiredFieldValidator>
                         </div>
-                        <div class="form-group col-6 d-inline-block">
+                         <div class="form-group col-12 d-inline-block">
                             <label for="exampleInputPassword1">College Location</label>
                             <asp:TextBox ID="college_location" runat="server" placeholder="Enter College Location" class="form-control"></asp:TextBox>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter Valid college location" ControlToValidate="college_location" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
-                        <div class="form-group col-6 d-inline-block">
+                          <div class="form-group col-12 d-inline-block">
                             <label for="exampleInputPassword1">College Email</label>
                             <asp:TextBox ID="college_email" runat="server" placeholder="Enter College Email" class="form-control"></asp:TextBox>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Enter Valid college email" ControlToValidate="college_email" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
-                        <div class="form-group col-6 d-inline-block">
+                         <div class="form-group col-12 d-inline-block">
                             <label for="exampleInputPassword1">College Contact</label>
                             <asp:TextBox ID="college_contact" runat="server" placeholder="Enter College Contact" class="form-control"></asp:TextBox>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Enter Valid college Contact" ControlToValidate="college_contact" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
-                        <div class="form-group col-6 d-inline-block">
+                        <div class="form-group col-12 d-inline-block">
                             <label for="exampleInputPassword1">College Details</label>
                             <asp:TextBox ID="college_details" runat="server" placeholder="Enter College Details" class="form-control"></asp:TextBox>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Enter Valid college details" ControlToValidate="college_details" Display="none" Font-Bold="True" ValidationGroup="admin" SetFocusOnError="true" ></asp:RequiredFieldValidator>
                         </div>
-                        </div>
                     </div>
-                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="#FF3300" ValidationGroup="admin" />
-                    <div class="card-footer">
-                        <asp:Button ID="submit" runat="server" Text="submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
+                    <div class="modal-footer bg-grey">
+                        <asp:Button ID="submit" runat="server" Text="Submit" CssClass="btn btn-primary" CausesValidation="true" ValidationGroup="admin" />
+                        <asp:Button ID="btnClose" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClientClick="closeModal();" />
                     </div>
                 </div>
-            </div>
+            </asp:Panel>
+          
 
             <!-- Table -->
             <div class="content">
@@ -130,6 +136,9 @@
                 </div>
             </div>
             <!-- Table end -->
+
+             <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="btnShowPopup"
+                PopupControlID="pnlAdminForm" BackgroundCssClass="modal-background" />
               <script type="text/javascript">
     $("#ContentPlaceHolder1_example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -145,7 +154,74 @@
       "responsive": true,
     });
   });
+
+                
     </script>
+              <script type="text/javascript">
+                $(document).ready(function () {
+                    // Initialize DataTable
+                    $('#<%= UpdatePanel1.ClientID %>').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copy', 'csv', 'excel', 'pdf', 'print'
+                        ]
+                    });
+
+                    // Custom function to show modal
+                    $('#<%= btnShowPopup.ClientID %>').click(function () {
+                        $('#<%= pnlAdminForm.ClientID %>').show();
+                    });
+                });
+
+                // Function to close the modal
+                function closeModal() {
+                    $('#<%= pnlAdminForm.ClientID %>').hide();
+                }
+
+                // Confirm delete action
+                function message(button) {
+                    return confirm("Are you sure you want to delete this record?");
+                }
+            </script>
+               <script type="text/javascript">
+
+    function showSuccessMessage(action) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Record has been ' + action + ' successfully.',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
+    function showErrorMessage(error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! ' + error,
+        });
+    }
+
+    // Confirmation before delete
+    function confirmDelete(collegeId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                __doPostBack('DeletePost', collegeId);
+            }
+        });
+        return false;  // Prevent default postback
+    }
+</script>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
