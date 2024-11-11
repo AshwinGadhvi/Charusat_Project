@@ -4,8 +4,8 @@
     ' Method to calculate time difference
     Protected Function CalculatePostedTime(ByVal postDate As Object) As String
         If postDate IsNot Nothing Then
-            Dim postedDate As DateTime = Convert.ToDateTime(postDate)
-            Dim timeDifference As TimeSpan = DateTime.Now - postedDate
+            Dim postedDate As Date = Convert.ToDateTime(postDate)
+            Dim timeDifference As TimeSpan = Date.Now - postedDate
 
             ' Calculate how long ago the job was posted
             If timeDifference.TotalDays >= 1 Then
