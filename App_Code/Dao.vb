@@ -10,7 +10,7 @@ Public Class Dao
     Dim conn As SqlConnection
 
     Public Sub New()
-        conn = New SqlConnection("Data Source=DESKTOP-7ILP9AF\SQLEXPRESS;Initial Catalog=Charusat_Project;Integrated Security=True")
+        conn = New SqlConnection("Data Source=DESKTOP-0760CPT\SQLEXPRESS;Initial Catalog=Charusat_Project;Integrated Security=True")
     End Sub
 
     Public Function get_data(ByVal qry As String) As Data.DataSet
