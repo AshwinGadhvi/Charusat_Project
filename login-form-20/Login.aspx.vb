@@ -15,6 +15,7 @@ Partial Class login_form_20_Login
         If ds.Tables(0).Rows.Count > 0 Then
             ' Verify password for Company_Master
             If BCrypt.Net.BCrypt.Verify(company_password.Text, ds.Tables(0).Rows(0)("student_password").ToString()) Then
+                Session("Main_id") = ds.Tables(0).Rows(0)("sr_id").ToString()
                 Session("u_id") = ds.Tables(0).Rows(0)("student_id").ToString()
                 Session("u_name") = ds.Tables(0).Rows(0)("student_f_name").ToString()
                 Response.Redirect("../Main.aspx")
