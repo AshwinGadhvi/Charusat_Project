@@ -16,6 +16,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:Label ID="student_id" runat="server" Text=""></asp:Label>
     <div class="container mt-4">
         <div class="card">
             <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
@@ -309,28 +310,52 @@
         <div class="row">
 
         <div class="mb-3">
-            <label class="form-label required-label">Certifications</label>
-            <div id="certificationsContainer">
-                <!-- Initial Certification Input -->
-                <div class="row mb-2 certification-entry">
-                    <div class="col-md-5">
-                        <asp:TextBox ID="certificationName" runat="server" CssClass="form-control mb-3" placeholder="Certification Name"></asp:TextBox>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:TextBox ID="issuingAuthority" runat="server" CssClass="form-control mb-3" placeholder="Issuing Authority"></asp:TextBox>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="date" class="form-control mb-3" placeholder="Date" />
-                    </div>
-                    <div class="col-md-5">
-                        <asp:FileUpload ID="certificateFileUpload_0" runat="server" CssClass="form-control" />
-                
-                    </div>
-                </div>
-            </div>
-            <!-- Add Certification Button -->
-            <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="addCertification()">Add Certification</button>
+            <asp:LinkButton ID="certificte" runat="server" class="btn-info btn-sm rounded mt-2" PostBackUrl="~/Student_Certificate.aspx">Add Certification</asp:LinkButton>
         </div>
+            <div class="mb-3 container-fluid">
+                <asp:GridView ID="example1" runat="server" AutoGenerateColumns="False" DataKeyNames="certificate_id" CssClass="table table-bordered table-striped table-responsive" DataSourceID="SqlDataSource1">
+                    <Columns>
+                        <asp:BoundField DataField="certificate_id" HeaderText="certificate_id" ReadOnly="True" InsertVisible="False" SortExpression="certificate_id" Visible="false"></asp:BoundField>
+                        <asp:BoundField DataField="certificate_name" HeaderText="Certificate Name" SortExpression="certificate_name"></asp:BoundField>
+                        <asp:BoundField DataField="certificate_description" HeaderText="Certificate Description" SortExpression="certificate_description"></asp:BoundField>
+                        <asp:BoundField DataField="cp_name" HeaderText="cp_name" SortExpression="cp_name" Visible="false"></asp:BoundField>
+                        <asp:BoundField DataField="sr_id" HeaderText="sr_id" SortExpression="sr_id" Visible="false"></asp:BoundField>
+                        <asp:TemplateField HeaderText="Actions">
+            <ItemTemplate>
+                <asp:ImageButton ID="Edit1" runat="server" CommandName="Edit" 
+                    ImageUrl="~/Admin/img/icons8-edit-40.png" Width="35px" Height="35px" 
+                    ToolTip="Edit Certificate" PostBackUrl="~/Student_Certificate.aspx"/>
+                &nbsp;&nbsp;
+                <asp:ImageButton ID="Delete1" runat="server" CommandName="Delete" 
+                    ImageUrl="~/Admin/img/bin.png" Width="35px" Height="35px" 
+                    ToolTip="Delete Certificate" 
+                    OnClientClick="return confirm('Are you sure you want to delete this record?');" />
+            </ItemTemplate>
+        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Student_Certificate] WHERE [certificate_id] = @certificate_id" InsertCommand="INSERT INTO [Student_Certificate] ([certificate_name], [certificate_description], [cp_name], [sr_id]) VALUES (@certificate_name, @certificate_description, @cp_name, @sr_id)" SelectCommand="SELECT * FROM [Student_Certificate] WHERE ([sr_id] = @sr_id) ORDER BY [certificate_name]" UpdateCommand="UPDATE [Student_Certificate] SET [certificate_name] = @certificate_name, [certificate_description] = @certificate_description, [cp_name] = @cp_name, [sr_id] = @sr_id WHERE [certificate_id] = @certificate_id">
+                    <DeleteParameters>
+                        <asp:Parameter Name="certificate_id" Type="Int32"></asp:Parameter>
+                    </DeleteParameters>
+                    <InsertParameters>
+                        <asp:Parameter Name="certificate_name" Type="String"></asp:Parameter>
+                        <asp:Parameter Name="certificate_description" Type="String"></asp:Parameter>
+                        <asp:Parameter Name="cp_name" Type="String"></asp:Parameter>
+                        <asp:Parameter Name="sr_id" Type="Int32"></asp:Parameter>
+                    </InsertParameters>
+                    <SelectParameters>
+                        <asp:SessionParameter SessionField="Main_id" DefaultValue="0" Name="sr_id" Type="Int32"></asp:SessionParameter>
+                    </SelectParameters>
+                    <UpdateParameters>
+                        <asp:Parameter Name="certificate_name" Type="String"></asp:Parameter>
+                        <asp:Parameter Name="certificate_description" Type="String"></asp:Parameter>
+                        <asp:Parameter Name="cp_name" Type="String"></asp:Parameter>
+                        <asp:Parameter Name="sr_id" Type="Int32"></asp:Parameter>
+                        <asp:Parameter Name="certificate_id" Type="Int32"></asp:Parameter>
+                    </UpdateParameters>
+                </asp:SqlDataSource>
+            </div>
         </div>
     </div>
 </div>
@@ -339,36 +364,10 @@
     <div class="col-12">
         <div class="row">
             <div class="mb-3">
-                <label class="form-label required-label">Projects</label>
-                <div id="projectsContainer">
-                    <!-- Initial Project Input -->
-                    <div class="row mb-2 project-entry">
-                        <div class="col-md-5">
-                            <asp:TextBox ID="projectTitle" runat="server" CssClass="form-control mb-3" placeholder="Title of Project"></asp:TextBox>
-                        </div>
-                        <div class="col-md-7">
-                            <asp:TextBox ID="projectDescription" runat="server" CssClass="form-control mb-3" TextMode="MultiLine" Rows="1" placeholder="Description"></asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="technologiesUsed" runat="server" CssClass="form-control mb-3" placeholder="Technologies/Tools Used"></asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="projectRole" runat="server" CssClass="form-control mb-3" placeholder="Role (Lead, Contributor, etc.)"></asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="projectLink" runat="server" CssClass="form-control mb-3" placeholder="Link to GitHub/Project Demo"></asp:TextBox>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add Project Button -->
-                <div class="d-flex align-items-start mb-3">
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-primary btn-sm mt-2 w-100" onclick="addProject()">Add Project</button>
+                        <button type="button" class="btn-info btn-sm mt-2" >Add Project</button>
                     </div>
                     <!-- ListBox for showing added project titles -->
-                 
-                </div>
-            </div>
+                
         </div>
     </div>
 </div>
@@ -377,107 +376,50 @@
     <div class="col-12">
         <div class="row">
             <div class="mb-3">
-                <label class="form-label required-label">Internships</label>
-                <div id="internshipsContainer">
-                    <!-- Initial Internship Input -->
-                    <div class="row mb-2 internship-entry">
-                        <div class="col-md-6">
-                            <asp:TextBox ID="companyName" runat="server" CssClass="form-control mb-3" placeholder="Company Name"></asp:TextBox>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="date" class="form-control mb-3" id="startDate" placeholder="Start Date" />
-                        </div>
-                        <div class="col-md-3">
-                            <input type="date" class="form-control mb-3" id="endDate" placeholder="End Date" />
-                        </div>
-                        <div class="col-md-6">
-                            <asp:TextBox ID="position" runat="server" CssClass="form-control mb-3" placeholder="Role/Position"></asp:TextBox>
-                        </div>
-                        <div class="col-md-6">
-                            <asp:TextBox ID="responsibilities" runat="server" CssClass="form-control mb-3" TextMode="MultiLine" Rows="1" placeholder="Responsibilities"></asp:TextBox>
-                        </div>
-                        <div class="col-md-12">
-                            <asp:TextBox ID="achievements" runat="server" CssClass="form-control mb-3" TextMode="MultiLine" Rows="3" placeholder="Key Achievements/Contributions"></asp:TextBox>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add Internship Button -->
-                <div class="d-flex align-items-start mb-3">
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-outline-primary btn-sm mt-2 w-100" onclick="addInternship()">Add Internship</button>
+                        <button type="button" class="btn-info btn-sm mt-2">Add Internship Experience</button>
                     </div>
                     <!-- ListBox for showing added internships -->
-                
-                </div>
-            </div>
+               
         </div>
     </div>
 </div>
                 <h6 class="mb-4 bg-primary p-2 text-white rounded-2">Extracurricular Activities</h6>
 <div class="row">
     <div class="col-12">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <asp:TextBox ID="leadershipPositions" runat="server" CssClass="form-control mb-3" placeholder="Leadership Positions (e.g., Head of Tech Fest)"></asp:TextBox>
-            </div>
-            <div class="col-md-6">
-                <asp:TextBox ID="eventsParticipated" runat="server" CssClass="form-control mb-3" placeholder="Events/Competitions Participated in (e.g., Hackathons, Debates)"></asp:TextBox>
-            </div>
-            <div class="col-md-12">
-                <asp:TextBox ID="volunteeringExperience" runat="server" CssClass="form-control mb-3" TextMode="MultiLine" Rows="3" placeholder="Volunteering Experience"></asp:TextBox>
-            </div>
+        <div class="row">
+             <div class="mb-3">
+                        <button type="button" class="btn-info btn-sm mt-2">Add Extracurricular Activities</button>
+                    </div>
         </div>
     </div>
 </div>
 <h6 class="mb-4 bg-primary p-2 text-white rounded-2">Achievements & Awards</h6>
 <div class="row">
     <div class="col-12">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <asp:TextBox ID="academicAwards" runat="server" CssClass="form-control mb-3" placeholder="Academic Awards (e.g., Dean’s List, Topper)"></asp:TextBox>
-            </div>
-            <div class="col-md-6">
-                <asp:TextBox ID="nonAcademicAwards" runat="server" CssClass="form-control mb-3" placeholder="Non-Academic Awards (e.g., Sports, Cultural)"></asp:TextBox>
-            </div>
-            <div class="col-md-12">
-                <asp:TextBox ID="publications" runat="server" CssClass="form-control mb-3" TextMode="MultiLine" Rows="3" placeholder="Publications/Research Papers (if any)"></asp:TextBox>
-            </div>
+        <div class="row">
+             <div class="mb-3">
+                        <button type="button" class="btn-info btn-sm mt-2">Add Achievements & Awards</button>
+                    </div>
         </div>
     </div>
 </div>
 <h6 class="mb-4 bg-primary p-2 text-white rounded-2">Placement Preferences</h6>
 <div class="row">
     <div class="col-12">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <asp:TextBox ID="preferredJobRole" runat="server" CssClass="form-control mb-3" placeholder="Preferred Job Role (e.g., Software Developer)"></asp:TextBox>
-            </div>
-            <div class="col-md-6">
-                <asp:TextBox ID="preferredLocation" runat="server" CssClass="form-control mb-3" placeholder="Preferred Location (City, State, Country)"></asp:TextBox>
-            </div>
-            <div class="col-md-6">
-                <asp:TextBox ID="preferredIndustry" runat="server" CssClass="form-control mb-3" placeholder="Preferred Industry (e.g., Software, Manufacturing)"></asp:TextBox>
-            </div>
-            <div class="col-md-6">
-                <select id="willingToRelocate" runat="server" CssClass="form-control mb-3">
-                    <option value="" disabled selected>Willing to Relocate</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="col-md-12">
-                <asp:TextBox ID="expectedSalary" runat="server" CssClass="form-control mb-3" placeholder="Expected Salary (optional)"></asp:TextBox>
-            </div>
+        <div class="row">
+             <div class="mb-3">
+                        <button type="button" class="btn-info btn-sm mt-2">Add Placement Preferences</button>
+                    </div>
         </div>
     </div>
 </div>
 <h6 class="mb-4 bg-primary p-2 text-white rounded-2">References</h6>
 <div class="row">
     <div class="col-12">
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <asp:TextBox ID="referenceContactDetails" runat="server" CssClass="form-control mb-3" TextMode="MultiLine" Rows="3" placeholder="Reference Contact Details (optional)"></asp:TextBox>
-            </div>
+         <div class="row">
+             <div class="mb-3">
+                        <button type="button" class="btn-info btn-sm mt-2">Add Refereneces</button>
+                    </div>
         </div>
     </div>
 </div>
