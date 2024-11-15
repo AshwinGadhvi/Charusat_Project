@@ -27,5 +27,26 @@ Partial Class Student_Details
             MsgBox("Error")
         End Try
     End Sub
+    Protected Sub example2_RowDeleting(sender As Object, e As GridViewDeleteEventArgs)
+        Try
+            ' Get the certificate_id of the row being deleted
+            Dim certificateId As Integer = Convert.ToInt32(example2.DataKeys(e.RowIndex).Value)
+
+            ' Set up the SQL data source delete command with the certificate_id parameter
+            SqlDataSource1.DeleteParameters("pro_id").DefaultValue = certificateId.ToString()
+
+            ' Execute the delete command to remove the record from the database
+            SqlDataSource1.Delete()
+
+            ' Optionally, you can refresh the GridView or show a confirmation message
+            ' example1.DataBind() ' To rebind and refresh the grid if needed
+
+            ' If you want to show a confirmation message
+            MsgBox("Project deletd successfully")
+        Catch ex As Exception
+            ' Handle errors (if any)
+            MsgBox("Error")
+        End Try
+    End Sub
 
 End Class

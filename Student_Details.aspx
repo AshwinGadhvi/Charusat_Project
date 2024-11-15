@@ -16,7 +16,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:Label ID="student_id" runat="server" Text=""></asp:Label>
+    <asp:Label ID="student_id" runat="server" Text="" Visible="false"></asp:Label>
     <div class="container mt-4">
         <div class="card">
             <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
@@ -312,7 +312,6 @@
         <div class="mb-3">
             <asp:LinkButton ID="certificte" runat="server" class="btn-info btn-sm rounded mt-2" PostBackUrl="~/Student_Certificate.aspx">Add Certification</asp:LinkButton>
         </div>
-            <div class="mb-3 container-fluid">
                 <asp:GridView ID="example1" runat="server" AutoGenerateColumns="False" DataKeyNames="certificate_id" CssClass="table table-bordered table-striped table-responsive" DataSourceID="SqlDataSource1">
                     <Columns>
                         <asp:BoundField DataField="certificate_id" HeaderText="certificate_id" ReadOnly="True" InsertVisible="False" SortExpression="certificate_id" Visible="false"></asp:BoundField>
@@ -323,7 +322,7 @@
                         <asp:TemplateField HeaderText="Actions">
             <ItemTemplate>
                 <asp:ImageButton ID="Edit1" runat="server" CommandName="Edit" 
-                    ImageUrl="~/Admin/img/icons8-edit-40.png" Width="35px" Height="35px" 
+                    ImageUrl="~/Admin/img/pen.png" Width="35px" Height="35px" 
                     ToolTip="Edit Certificate" PostBackUrl="~/Student_Certificate.aspx"/>
                 &nbsp;&nbsp;
                 <asp:ImageButton ID="Delete1" runat="server" CommandName="Delete" 
@@ -356,7 +355,7 @@
                     </UpdateParameters>
                 </asp:SqlDataSource>
             </div>
-        </div>
+        
     </div>
 </div>
                 <h6 class="mb-4 bg-primary p-2 text-white rounded-2">Projects</h6>
@@ -364,10 +363,54 @@
     <div class="col-12">
         <div class="row">
             <div class="mb-3">
-                        <button type="button" class="btn-info btn-sm mt-2" >Add Project</button>
+            <asp:LinkButton ID="project" runat="server" class="btn-info btn-sm rounded mt-2" PostBackUrl="~/Student_Project.aspx">Add Project</asp:LinkButton>
                     </div>
                     <!-- ListBox for showing added project titles -->
-                
+            <asp:GridView ID="example2" runat="server" CssClass="table table-bordered table-striped table-responsive" AutoGenerateColumns="False" DataKeyNames="pro_id" DataSourceID="SqlDataSource2">
+                <Columns>
+                    <asp:BoundField DataField="pro_id" HeaderText="pro_id" Visible="false" ReadOnly="True" InsertVisible="False" SortExpression="pro_id"></asp:BoundField>
+                    <asp:BoundField DataField="pro_name" HeaderText="Project Name" SortExpression="pro_name"></asp:BoundField>
+                    <asp:BoundField DataField="pro_description" HeaderText="Project Description" SortExpression="pro_description"></asp:BoundField>
+                    <asp:BoundField DataField="pro_cname" HeaderText="pro_cname" SortExpression="pro_cname" Visible="false"></asp:BoundField>
+                    <asp:BoundField DataField="sr_id" HeaderText="sr_id" SortExpression="sr_id" Visible="false"></asp:BoundField>
+                    <asp:BoundField DataField="tech_stack" HeaderText="Technology Used" SortExpression="tech_stack"></asp:BoundField>
+                    <asp:TemplateField HeaderText="Actions">
+            <ItemTemplate>
+                <asp:ImageButton ID="Edit1" runat="server" CommandName="Edit" 
+                    ImageUrl="~/Admin/img/pen.png" Width="35px" Height="35px" 
+                    ToolTip="Edit Project" PostBackUrl="~/Student_Project.aspx"/>
+                &nbsp;&nbsp;
+                <asp:ImageButton ID="Delete1" runat="server" CommandName="Delete" 
+                    ImageUrl="~/Admin/img/bin.png" Width="35px" Height="35px" 
+                    ToolTip="Delete Certificate" 
+                    OnClientClick="return confirm('Are you sure you want to delete this record?');" />
+            </ItemTemplate>
+        </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+            <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:Charusat_ProjectConnectionString %>' DeleteCommand="DELETE FROM [Student_Project] WHERE [pro_id] = @pro_id" InsertCommand="INSERT INTO [Student_Project] ([pro_name], [pro_description], [pro_cname], [sr_id], [tech_stack]) VALUES (@pro_name, @pro_description, @pro_cname, @sr_id, @tech_stack)" SelectCommand="SELECT * FROM [Student_Project] WHERE ([sr_id] = @sr_id) ORDER BY [pro_name]" UpdateCommand="UPDATE [Student_Project] SET [pro_name] = @pro_name, [pro_description] = @pro_description, [pro_cname] = @pro_cname, [sr_id] = @sr_id, [tech_stack] = @tech_stack WHERE [pro_id] = @pro_id">
+                <DeleteParameters>
+                    <asp:Parameter Name="pro_id" Type="Int32"></asp:Parameter>
+                </DeleteParameters>
+                <InsertParameters>
+                    <asp:Parameter Name="pro_name" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="pro_description" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="pro_cname" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="sr_id" Type="Int32"></asp:Parameter>
+                    <asp:Parameter Name="tech_stack" Type="String"></asp:Parameter>
+                </InsertParameters>
+                <SelectParameters>
+                    <asp:SessionParameter SessionField="Main_id" DefaultValue="0" Name="sr_id" Type="Int32"></asp:SessionParameter>
+                </SelectParameters>
+                <UpdateParameters>
+                    <asp:Parameter Name="pro_name" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="pro_description" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="pro_cname" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="sr_id" Type="Int32"></asp:Parameter>
+                    <asp:Parameter Name="tech_stack" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="pro_id" Type="Int32"></asp:Parameter>
+                </UpdateParameters>
+            </asp:SqlDataSource>
         </div>
     </div>
 </div>
